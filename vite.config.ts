@@ -8,9 +8,9 @@ import { resolve } from "node:path";
 export default defineConfig({
 	plugins: [
 		tanstackRouter({
-			target: 'react',
+			target: "react",
 			autoCodeSplitting: true,
-		  }),
+		}),
 		viteReact({
 			babel: {
 				plugins: ["babel-plugin-react-compiler"],
