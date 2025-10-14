@@ -1,13 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
+import logo from "../logo.svg";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
-	component: Index,
+	component: App,
 });
 
-function Index() {
+function App() {
 	return (
-		<div className="p-2">
-			<h3>Welcome Home!</h3>
+		<div className="text-center">
+			<Button>Test</Button>
 		</div>
 	);
 }
