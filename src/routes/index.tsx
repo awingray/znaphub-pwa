@@ -10,7 +10,7 @@ function App() {
 	const [count, setCount] = useState(0);
 	return (
 		<div className="text-center">
-			Hello World{" "}
+			Hello World
 			<Button onClick={() => setCount((prev) => prev + 1)}>{count}</Button>
 		</div>
 	);
