@@ -1,5 +1,8 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: api client */
 
+import { keycloak } from '@/lib/keycloak'
+import { useAuthStore } from '@/stores/auth-store'
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export class ApiError extends Error {
@@ -15,6 +18,7 @@ export class ApiError extends Error {
 
 interface RequestConfig extends RequestInit {
 	params?: Record<string, any>;
+	skipAuth?: boolean;
 }
 
 class ApiClient {
@@ -24,8 +28,9 @@ class ApiClient {
 		endpoint: string,
 		config: RequestConfig = {},
 	): Promise<T> {
-		const { params, ...fetchConfig } = config;
+		const { params, skipAuth = false, ...fetchConfig } = config;
 		const url = new URL(`${this.baseURL}${endpoint}`);
+		
 		if (params) {
 			Object.entries(params).forEach(([key, value]) => {
 				if (value !== undefined && value !== null) {
@@ -34,16 +39,36 @@ class ApiClient {
 			});
 		}
 
+		const headers: Record<string, string> = {
+			"Content-Type": "application/json",
+		};
+
+		if (!skipAuth) {
+			try {
+				await keycloak.updateToken(30);
+				if (keycloak.token) {
+					headers.Authorization = `Bearer ${keycloak.token}`;
+				}
+			} catch (error) {
+				console.error('Token refresh failed:', error);
+				useAuthStore.getState().logout();
+				throw new ApiError(401, 'Unauthorized', 'Session expired');
+			}
+		}
+
+		Object.assign(headers, fetchConfig.headers);
+
 		const response = await fetch(url.toString(), {
 			...fetchConfig,
-			headers: {
-				"Content-Type": "application/json",
-				...fetchConfig.headers,
-			},
+			headers,
 		});
 
 		if (!response.ok) {
 			const data = await response.json().catch(() => ({}));
+			if (response.status === 401) {
+				useAuthStore.getState().logout();
+			}
+			
 			throw new ApiError(response.status, response.statusText, data);
 		}
 
