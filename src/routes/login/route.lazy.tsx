@@ -8,6 +8,10 @@ export const Route = createLazyFileRoute(ROUTES.LOGIN)({
 });
 
 function RouteComponent() {
-    const { login } = useAuthStore.getState();
-	return <div>Hello "/login"! <Button onClick={() => login()}>Login</Button> </div>;
+	const { login } = useAuthStore.getState();
+	return (
+		<div>
+			Hello "/login"! <Button onClick={() => login()}>Login</Button>{" "}
+		</div>
+	);
 }

@@ -1,10 +1,10 @@
-import { ROUTES } from '@/lib/routes'
-import { createFileRoute } from '@tanstack/react-router'
+import { ROUTES } from "@/lib/routes";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(ROUTES.AUTH.EVENTS)({
-  component: RouteComponent,
-})
+	component: RouteComponent,
+});
 
 function RouteComponent() {
-  return <div>Hello "/_auth/events"!</div>
+	return <div>Hello "/_auth/events"!</div>;
 }
