@@ -1,8 +1,9 @@
 export const ROUTES = {
 	LOGIN: "/login",
 	HOME: "/",
+    EVENTS: "/events",
 	AUTH: {
 		BASE: "/_auth",
-		DASHBOARD: "/_auth/dashboard",
+		EVENTS: "/_auth/events",
 	},
 } as const;
