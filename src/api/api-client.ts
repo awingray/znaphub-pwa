@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: api client */
 
-import { keycloak } from '@/lib/keycloak'
-import { useAuthStore } from '@/stores/auth-store'
+import { keycloak } from "@/lib/keycloak";
+import { useAuthStore } from "@/stores/auth-store";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -30,7 +30,7 @@ class ApiClient {
 	): Promise<T> {
 		const { params, skipAuth = false, ...fetchConfig } = config;
 		const url = new URL(`${this.baseURL}${endpoint}`);
-		
+
 		if (params) {
 			Object.entries(params).forEach(([key, value]) => {
 				if (value !== undefined && value !== null) {
@@ -50,9 +50,9 @@ class ApiClient {
 					headers.Authorization = `Bearer ${keycloak.token}`;
 				}
 			} catch (error) {
-				console.error('Token refresh failed:', error);
+				console.error("Token refresh failed:", error);
 				useAuthStore.getState().logout();
-				throw new ApiError(401, 'Unauthorized', 'Session expired');
+				throw new ApiError(401, "Unauthorized", "Session expired");
 			}
 		}
 
@@ -68,7 +68,7 @@ class ApiClient {
 			if (response.status === 401) {
 				useAuthStore.getState().logout();
 			}
-			
+
 			throw new ApiError(response.status, response.statusText, data);
 		}
 
