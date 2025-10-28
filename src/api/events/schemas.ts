@@ -6,7 +6,7 @@ export const eventSchema = z.object({
 	slug: z.string(),
 	description: z.string().nullable(),
 	isPublic: z.boolean(),
-	createdAt: z.iso.datetime(),
+	createdAt: z.coerce.date(),
 });
 
 export const eventListschema = z.array(eventSchema);

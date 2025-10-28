@@ -1,17 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { ROUTES } from "@/lib/routes";
-import { useAuthStore } from "@/stores/auth-store";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import LoginComponent from "@/pages/auth";
+import { ROUTES } from "@/lib/routes";
 
 export const Route = createLazyFileRoute(ROUTES.LOGIN)({
-	component: RouteComponent,
+	component: LoginComponent,
 });
-
-function RouteComponent() {
-	const { login } = useAuthStore.getState();
-	return (
-		<div>
-			Hello "/login"! <Button onClick={() => login()}>Login</Button>{" "}
-		</div>
-	);
-}
