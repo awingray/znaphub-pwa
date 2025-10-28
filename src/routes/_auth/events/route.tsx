@@ -1,4 +1,4 @@
-import { ROUTES } from "@/lib/routes";
+import { ROUTES } from "@/constants/routes";
 import EventListComponent from "@/pages/events";
 import { createFileRoute } from "@tanstack/react-router";
 

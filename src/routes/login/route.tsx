@@ -1,4 +1,4 @@
-import { ROUTES } from "@/lib/routes";
+import { ROUTES } from "@/constants/routes";
 import { useAuthStore } from "@/stores/auth-store";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
