@@ -1,41 +1,33 @@
 import { create } from "zustand";
-import { keycloak, initKeycloak } from "@/lib/keycloak";
+import { initAuth, startLogin, startLogout, getCurrentToken } from "@/lib/auth";
 
 interface AuthState {
-	isAuthenticated: boolean;
-	isInitialized: boolean;
-	token: string | undefined;
-
-	initialize: () => Promise<void>;
-	login: () => void;
-	logout: () => void;
+  isAuthenticated: boolean;
+  isInitialized: boolean;
+  token?: string;
+  initialize: () => Promise<void>;
+  login: (redirect?: string) => void;
+  logout: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-	isAuthenticated: false,
-	isInitialized: false,
-	token: undefined,
+  isAuthenticated: false,
+  isInitialized: false,
+  token: undefined,
 
-	initialize: async () => {
-		const authenticated = await initKeycloak();
+  initialize: async () => {
+    const ok = await initAuth();
+    const token = await getCurrentToken();
+    set({ isAuthenticated: ok, isInitialized: true, token });
+  },
 
-		set({
-			isAuthenticated: authenticated,
-			isInitialized: true,
-			token: keycloak.token,
-		});
+  login: (redirect) => {
+    const state = redirect ? { redirect } : undefined;
+    startLogin(state);
+  },
 
-		keycloak.onTokenExpired = () => {
-			keycloak.updateToken(30).then(() => {
-				set({ token: keycloak.token });
-			});
-		};
-	},
-	login: () => {
-		keycloak.login();
-	},
-	logout: () => {
-		set({ isAuthenticated: false, token: undefined });
-		keycloak.logout();
-	},
+  logout: () => {
+    set({ isAuthenticated: false, token: undefined });
+    startLogout();
+  },
 }));
