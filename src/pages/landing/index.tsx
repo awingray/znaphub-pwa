@@ -1,3 +1,3 @@
 export default function LandingComponent() {
-    return <>This is the landing page</>;
+	return <>This is the landing page</>;
 }

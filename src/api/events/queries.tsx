@@ -10,5 +10,5 @@ export const EventListQueryOptions = () =>
 		queryFn: async () => {
 			const response = await api.get(ENDPOINTS.EVENTS.LIST);
 			return eventListschema.parse(response);
-		}
+		},
 	});
