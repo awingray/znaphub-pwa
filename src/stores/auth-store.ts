@@ -11,9 +11,12 @@ interface AuthState {
 	isAuthenticated: boolean;
 	isInitialized: boolean;
 	token?: string;
+
 	initialize: () => Promise<void>;
 	login: (redirect?: string) => void;
 	logout: () => void;
+
+	setToken: (token?: string) => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -26,32 +29,28 @@ export const useAuthStore = create<AuthState>()(
 				if (get().isInitialized) return;
 
 				const token = await getCurrentToken();
-				set({ isAuthenticated: !!token, isInitialized: true, token });
+				get().setToken(token);
 			},
 			login: (redirect) => {
 				const state = redirect ? { redirect } : undefined;
 				startLogin(state);
 			},
 			logout: () => {
-				set({ isAuthenticated: false, token: undefined });
+				get().setToken();
 				startLogout();
 			},
+			setToken: (token) =>
+				set({
+					isAuthenticated: !!token,
+					isInitialized: true,
+					token,
+				}),
 		}),
 		{ name: "auth-store" },
 	),
 );
 
 userManager.events.addAccessTokenExpiring(async () => {
-	try {
-		const user = await userManager.signinSilent();
-		useAuthStore.setState({
-			isAuthenticated: !!user,
-			token: user?.access_token,
-		});
-	} catch {
-		useAuthStore.setState({
-			isAuthenticated: false,
-			token: undefined,
-		});
-	}
+	const user = await userManager.signinSilent().catch(() => null);
+	useAuthStore.getState().setToken(user?.access_token);
 });

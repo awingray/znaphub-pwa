@@ -19,27 +19,15 @@ export const userManager = new UserManager({
 	automaticSilentRenew: true,
 });
 
-export const startLogin = async (state?: Record<string, string>) => {
-	await userManager.signinRedirect({ state });
-};
+export const startLogin = async (state?: Record<string, string>) => await userManager.signinRedirect({ state });
 
-export const completeLogin = async () => {
-	const user = await userManager.signinRedirectCallback();
-	return user;
-};
+export const completeLogin = async () => await userManager.signinRedirectCallback();
 
-export const startLogout = async () => {
-	await userManager.signoutRedirect();
-};
+export const startLogout = async () => await userManager.signoutRedirect();
 
 export const getCurrentToken = async (): Promise<string | undefined> => {
 	let user = await userManager.getUser();
 	if (!user || user.expired) return undefined;
-	try {
-		user = await userManager.signinSilent();
-		return user?.access_token;
-	} catch (err) {
-		console.warn("Silent refresh failed:", err);
-		return undefined;
-	}
+	user = await userManager.signinSilent().catch(() => null);
+	return user?.access_token;
 };
