@@ -15,13 +15,15 @@ export const userManager = new UserManager({
 	silent_redirect_uri: SILENT_REDIRECT_URI,
 	response_type: "code",
 	scope: "openid profile email",
-	userStore: new WebStorageStateStore({ store: window.localStorage }),
+	userStore: new WebStorageStateStore({ store: window.sessionStorage }),
 	automaticSilentRenew: true,
 });
 
-export const startLogin = async (state?: Record<string, string>) => await userManager.signinRedirect({ state });
+export const startLogin = async (state?: Record<string, string>) =>
+	await userManager.signinRedirect({ state });
 
-export const completeLogin = async () => await userManager.signinRedirectCallback();
+export const completeLogin = async () =>
+	await userManager.signinRedirectCallback();
 
 export const startLogout = async () => await userManager.signoutRedirect();
 

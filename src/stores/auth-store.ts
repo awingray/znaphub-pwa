@@ -5,7 +5,7 @@ import {
 	getCurrentToken,
 	userManager,
 } from "@/lib/auth";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface AuthState {
 	isAuthenticated: boolean;
@@ -46,7 +46,7 @@ export const useAuthStore = create<AuthState>()(
 					token,
 				}),
 		}),
-		{ name: "auth-store" },
+		{ name: "auth-store", storage: createJSONStorage(() => sessionStorage) },
 	),
 );
 

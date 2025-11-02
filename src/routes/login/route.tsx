@@ -6,9 +6,9 @@ export const Route = createFileRoute(ROUTES.LOGIN)({
 	beforeLoad: async ({ search }) => {
 		if (!useAuthStore.getState().isAuthenticated) return;
 		const redirectPath = search.redirect || ROUTES.EVENTS;
-			throw redirect({
-				to: redirectPath as string,
-			});
+		throw redirect({
+			to: redirectPath as string,
+		});
 	},
 	validateSearch: (search: Record<string, unknown>) => {
 		return {
