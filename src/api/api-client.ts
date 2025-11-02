@@ -42,6 +42,7 @@ class ApiClient {
 		const headers: Record<string, string> = {
 			"Content-Type": "application/json",
 		};
+		const logout = useAuthStore((state) => state.logout);
 
 		if (!skipAuth) {
 			try {
@@ -51,7 +52,7 @@ class ApiClient {
 				}
 			} catch (error) {
 				console.error("Token refresh failed:", error);
-				useAuthStore.getState().logout();
+				logout();
 				throw new ApiError(401, "Unauthorized", "Session expired");
 			}
 		}
@@ -66,7 +67,7 @@ class ApiClient {
 		if (!response.ok) {
 			const data = await response.json().catch(() => ({}));
 			if (response.status === 401) {
-				useAuthStore.getState().logout();
+				logout();
 			}
 
 			throw new ApiError(response.status, response.statusText, data);

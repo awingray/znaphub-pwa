@@ -25,7 +25,8 @@ export const startLogin = async (state?: Record<string, string>) =>
 export const completeLogin = async () =>
 	await userManager.signinRedirectCallback();
 
-export const signInSilentCallback = () => userManager.signinSilentCallback().catch(console.error);
+export const signInSilentCallback = () =>
+	userManager.signinSilentCallback().catch(console.error);
 
 export const startLogout = async () => await userManager.signoutRedirect();
 
@@ -36,9 +37,11 @@ export const getCurrentToken = async (): Promise<string | undefined> => {
 	return user?.access_token;
 };
 
-export const registerSilentRenewEvent = async (cb: (token: string | undefined) => void) => {
+export const registerSilentRenewEvent = async (
+	cb: (token: string | undefined) => void,
+) => {
 	userManager.events.addAccessTokenExpired(async () => {
 		const user = await userManager.signinSilent().catch(() => null);
 		cb(user?.access_token);
 	});
-}
+};

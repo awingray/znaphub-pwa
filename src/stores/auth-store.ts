@@ -3,7 +3,7 @@ import {
 	startLogin,
 	startLogout,
 	getCurrentToken,
-	registerSilentRenewEvent
+	registerSilentRenewEvent,
 } from "@/lib/auth";
 import { persist, createJSONStorage } from "zustand/middleware";
 
@@ -51,5 +51,3 @@ export const useAuthStore = create<AuthState>()(
 		{ name: "auth-store", storage: createJSONStorage(() => sessionStorage) },
 	),
 );
-
-
