@@ -1,5 +1,11 @@
 import { create } from "zustand";
-import { initAuth, startLogin, startLogout, getCurrentToken } from "@/lib/auth";
+import {
+	initAuth,
+	startLogin,
+	startLogout,
+	getCurrentToken,
+	userManager,
+} from "@/lib/auth";
 
 interface AuthState {
 	isAuthenticated: boolean;
@@ -31,3 +37,24 @@ export const useAuthStore = create<AuthState>((set) => ({
 		startLogout();
 	},
 }));
+
+userManager.events.addUserLoaded((user) => {
+	useAuthStore.setState({
+		isAuthenticated: true,
+		token: user.access_token,
+	});
+});
+
+userManager.events.addUserUnloaded(() => {
+	useAuthStore.setState({
+		isAuthenticated: false,
+		token: undefined,
+	});
+});
+
+userManager.events.addAccessTokenExpired(() => {
+	useAuthStore.setState({
+		isAuthenticated: false,
+		token: undefined,
+	});
+});

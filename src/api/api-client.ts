@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: api client */
 
-import { keycloak } from "@/lib/keycloak";
+import { getCurrentToken } from "@/lib/auth";
 import { useAuthStore } from "@/stores/auth-store";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -45,9 +45,9 @@ class ApiClient {
 
 		if (!skipAuth) {
 			try {
-				await keycloak.updateToken(30);
-				if (keycloak.token) {
-					headers.Authorization = `Bearer ${keycloak.token}`;
+				const token = await getCurrentToken();
+				if (token) {
+					headers.Authorization = `Bearer ${token}`;
 				}
 			} catch (error) {
 				console.error("Token refresh failed:", error);

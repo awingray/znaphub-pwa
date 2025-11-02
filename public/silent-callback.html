@@ -1,0 +1,9 @@
+<!doctype html>
+<html>
+  <body>
+    <script type="module">
+      import { userManager } from "/src/lib/auth.ts";
+      userManager.signinSilentCallback().catch(console.error);
+    </script>
+  </body>
+</html>
