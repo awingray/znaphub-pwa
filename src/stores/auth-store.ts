@@ -1,11 +1,6 @@
 import { create } from "zustand";
-import {
-	initAuth,
-	startLogin,
-	startLogout,
-	getCurrentToken,
-	userManager,
-} from "@/lib/auth";
+import { startLogin, startLogout, getCurrentToken } from "@/lib/auth";
+import { persist } from "zustand/middleware";
 
 interface AuthState {
 	isAuthenticated: boolean;
@@ -16,45 +11,25 @@ interface AuthState {
 	logout: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-	isAuthenticated: false,
-	isInitialized: false,
-	token: undefined,
-
-	initialize: async () => {
-		const ok = await initAuth();
-		const token = await getCurrentToken();
-		set({ isAuthenticated: ok, isInitialized: true, token });
-	},
-
-	login: (redirect) => {
-		const state = redirect ? { redirect } : undefined;
-		startLogin(state);
-	},
-
-	logout: () => {
-		set({ isAuthenticated: false, token: undefined });
-		startLogout();
-	},
-}));
-
-userManager.events.addUserLoaded((user) => {
-	useAuthStore.setState({
-		isAuthenticated: true,
-		token: user.access_token,
-	});
-});
-
-userManager.events.addUserUnloaded(() => {
-	useAuthStore.setState({
-		isAuthenticated: false,
-		token: undefined,
-	});
-});
-
-userManager.events.addAccessTokenExpired(() => {
-	useAuthStore.setState({
-		isAuthenticated: false,
-		token: undefined,
-	});
-});
+export const useAuthStore = create<AuthState>()(
+	persist(
+		(set) => ({
+			isAuthenticated: false,
+			isInitialized: false,
+			token: undefined,
+			initialize: async () => {
+				const token = await getCurrentToken();
+				set({ isAuthenticated: !!token, isInitialized: true, token });
+			},
+			login: (redirect) => {
+				const state = redirect ? { redirect } : undefined;
+				startLogin(state);
+			},
+			logout: () => {
+				set({ isAuthenticated: false, token: undefined });
+				startLogout();
+			},
+		}),
+		{ name: "auth-store" },
+	),
+);

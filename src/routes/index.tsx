@@ -1,14 +1,7 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { ROUTES } from "@/constants/routes";
 import LandingComponent from "@/pages/landing";
-import { useAuthStore } from "@/stores/auth-store";
 
 export const Route = createFileRoute(ROUTES.HOME)({
-	beforeLoad: () => {
-		const { isAuthenticated } = useAuthStore.getState();
-		console.log(isAuthenticated);
-		if (isAuthenticated)
-			throw redirect({ to: ROUTES.EVENTS });
-	},
 	component: LandingComponent,
 });

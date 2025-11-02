@@ -11,8 +11,9 @@ export const Route = createFileRoute(ROUTES.CALLBACK)({
 			isInitialized: true,
 			token: user?.access_token,
 		});
-		
-		const target = (user?.state && (user.state as any).redirect) || ROUTES.EVENTS;
+
+		const target =
+			(user?.state && (user.state as any).redirect) || ROUTES.EVENTS;
 		throw redirect({ to: target });
 	},
 });
