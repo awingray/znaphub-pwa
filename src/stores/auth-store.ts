@@ -3,7 +3,7 @@ import {
 	startLogin,
 	startLogout,
 	getCurrentToken,
-	userManager,
+	registerSilentRenewEvent
 } from "@/lib/auth";
 import { persist, createJSONStorage } from "zustand/middleware";
 
@@ -28,6 +28,8 @@ export const useAuthStore = create<AuthState>()(
 			initialize: async () => {
 				if (get().isInitialized) return;
 
+				registerSilentRenewEvent((token) => get().setToken(token));
+
 				const token = await getCurrentToken();
 				get().setToken(token);
 			},
@@ -50,7 +52,4 @@ export const useAuthStore = create<AuthState>()(
 	),
 );
 
-userManager.events.addAccessTokenExpiring(async () => {
-	const user = await userManager.signinSilent().catch(() => null);
-	useAuthStore.getState().setToken(user?.access_token);
-});
+

@@ -7,7 +7,7 @@ const REDIRECT_URI = import.meta.env.VITE_AUTHENTIK_REDIRECT_URI;
 const SILENT_REDIRECT_URI = import.meta.env.VITE_AUTHENTIK_SILENT_REDIRECT_URI;
 const POST_LOGOUT_URI = import.meta.env.VITE_AUTHENTIK_POST_LOGOUT_URI;
 
-export const userManager = new UserManager({
+const userManager = new UserManager({
 	authority: `${AUTH_URL}/application/o/${APPLICATION_NAME}/`,
 	client_id: CLIENT_ID,
 	redirect_uri: REDIRECT_URI,
@@ -25,6 +25,8 @@ export const startLogin = async (state?: Record<string, string>) =>
 export const completeLogin = async () =>
 	await userManager.signinRedirectCallback();
 
+export const signInSilentCallback = () => userManager.signinSilentCallback().catch(console.error);
+
 export const startLogout = async () => await userManager.signoutRedirect();
 
 export const getCurrentToken = async (): Promise<string | undefined> => {
@@ -33,3 +35,10 @@ export const getCurrentToken = async (): Promise<string | undefined> => {
 	user = await userManager.signinSilent().catch(() => null);
 	return user?.access_token;
 };
+
+export const registerSilentRenewEvent = async (cb: (token: string | undefined) => void) => {
+	userManager.events.addAccessTokenExpired(async () => {
+		const user = await userManager.signinSilent().catch(() => null);
+		cb(user?.access_token);
+	});
+}
