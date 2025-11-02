@@ -4,18 +4,11 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute(ROUTES.LOGIN)({
 	beforeLoad: async ({ search }) => {
-		const { isAuthenticated, isInitialized, initialize } =
-			useAuthStore.getState();
-		if (!isInitialized) {
-			await initialize();
-		}
-
-		if (isAuthenticated) {
-			const redirectPath = search.redirect || ROUTES.EVENTS;
+		if (!useAuthStore.getState().isAuthenticated) return;
+		const redirectPath = search.redirect || ROUTES.EVENTS;
 			throw redirect({
 				to: redirectPath as string,
 			});
-		}
 	},
 	validateSearch: (search: Record<string, unknown>) => {
 		return {
