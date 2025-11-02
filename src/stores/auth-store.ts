@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import { startLogin, startLogout, getCurrentToken } from "@/lib/auth";
+import {
+	startLogin,
+	startLogout,
+	getCurrentToken,
+	userManager,
+} from "@/lib/auth";
 import { persist } from "zustand/middleware";
 
 interface AuthState {
@@ -13,11 +18,13 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>()(
 	persist(
-		(set) => ({
+		(set, get) => ({
 			isAuthenticated: false,
 			isInitialized: false,
 			token: undefined,
 			initialize: async () => {
+				if (get().isInitialized) return;
+
 				const token = await getCurrentToken();
 				set({ isAuthenticated: !!token, isInitialized: true, token });
 			},
@@ -33,3 +40,18 @@ export const useAuthStore = create<AuthState>()(
 		{ name: "auth-store" },
 	),
 );
+
+userManager.events.addAccessTokenExpiring(async () => {
+	try {
+		const user = await userManager.signinSilent();
+		useAuthStore.setState({
+			isAuthenticated: !!user,
+			token: user?.access_token,
+		});
+	} catch {
+		useAuthStore.setState({
+			isAuthenticated: false,
+			token: undefined,
+		});
+	}
+});

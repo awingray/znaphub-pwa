@@ -5,21 +5,13 @@ import { ROUTES } from "@/constants/routes";
 
 export const Route = createFileRoute(ROUTES.AUTH.BASE)({
 	beforeLoad: async ({ location }) => {
-		const { isAuthenticated, isInitialized, initialize } =
-			useAuthStore.getState();
-
-		if (!isInitialized) {
-			await initialize();
-		}
-
-		if (!isAuthenticated) {
-			throw redirect({
-				to: ROUTES.LOGIN,
-				search: {
-					redirect: location.href,
-				},
-			});
-		}
+		if (useAuthStore.getState().isAuthenticated) return;
+		throw redirect({
+			to: ROUTES.LOGIN,
+			search: {
+				redirect: location.href,
+			},
+		});
 	},
 	component: AppLayout,
 });
