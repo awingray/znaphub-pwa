@@ -2,8 +2,7 @@ import { create } from "zustand";
 import {
 	startLogin,
 	startLogout,
-	getCurrentToken,
-	registerSilentRenewEvent,
+	getCurrentToken
 } from "@/lib/auth";
 import { persist, createJSONStorage } from "zustand/middleware";
 
