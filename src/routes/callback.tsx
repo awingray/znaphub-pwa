@@ -6,8 +6,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 export const Route = createFileRoute(ROUTES.CALLBACK)({
 	beforeLoad: async () => {
 		const user = await completeLogin();
-		const setToken = useAuthStore((state) => state.setToken);
-		setToken(user.access_token);
+		useAuthStore.getState().setToken(user.access_token);
 
 		const target =
 			(user?.state && (user.state as any).redirect) || ROUTES.EVENTS;

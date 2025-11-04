@@ -5,7 +5,7 @@ import { useAuthStore } from "@/stores/auth-store";
 
 export const Route = createFileRoute(ROUTES.HOME)({
 	beforeLoad: () => {
-		if (!useAuthStore((state) => state.isAuthenticated)) return;
+		if (!useAuthStore.getState().isAuthenticated) return;
 		throw redirect({ to: ROUTES.EVENTS });
 	},
 	component: LandingComponent,

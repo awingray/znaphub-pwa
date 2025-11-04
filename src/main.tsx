@@ -42,4 +42,4 @@ const bootstrap = async () => {
 	reportWebVitals();
 };
 
-bootstrap();
+await bootstrap();
