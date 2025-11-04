@@ -32,8 +32,8 @@ export const startLogout = async () => await userManager.signoutRedirect();
 
 export const getCurrentToken = async (): Promise<string | undefined> => {
 	let user = await userManager.getUser();
-	if (!user || user.expired) return undefined;
-	user = await userManager.signinSilent().catch(() => null);
+	if (!user) return undefined;
+	if (user.expired) user = await userManager.signinSilent().catch(() => null);
 	return user?.access_token;
 };
 

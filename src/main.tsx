@@ -26,7 +26,6 @@ declare module "@tanstack/react-router" {
 
 const bootstrap = async () => {
 	await useAuthStore.getState().initialize();
-
 	const rootElement = document.getElementById("app");
 	if (rootElement && !rootElement.innerHTML) {
 		const root = ReactDOM.createRoot(rootElement);
