@@ -36,12 +36,3 @@ export const getCurrentToken = async (): Promise<string | undefined> => {
 	if (user.expired) user = await userManager.signinSilent().catch(() => null);
 	return user?.access_token;
 };
-
-export const registerSilentRenewEvent = async (
-	cb: (token: string | undefined) => void,
-) => {
-	userManager.events.addAccessTokenExpired(async () => {
-		const user = await userManager.signinSilent().catch(() => null);
-		cb(user?.access_token);
-	});
-};

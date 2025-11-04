@@ -28,8 +28,6 @@ export const useAuthStore = create<AuthState>()(
 			initialize: async () => {
 				if (get().isInitialized) return;
 
-				registerSilentRenewEvent((token) => get().setToken(token));
-
 				const token = await getCurrentToken();
 				get().setToken(token);
 			},
