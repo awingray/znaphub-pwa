@@ -14,8 +14,7 @@ export const useCreateEvent = () => {
 	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: (payload: CreateEventPayload) => createEvent(payload),
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: eventQueries.all() });
-		},
+		onSuccess: () =>
+			queryClient.invalidateQueries({ queryKey: eventQueries.all() }),
 	});
 };
