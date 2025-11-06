@@ -1,7 +1,7 @@
 export const ENDPOINTS = {
 	EVENTS: {
 		LIST: "/event",
-		DETAIL: "/event/{0}",
+		DETAIL: (id: string) => `/event/${id}`,
 		CREATE: "/event",
 	},
 } as const;
