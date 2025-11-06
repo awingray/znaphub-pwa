@@ -1,9 +1,5 @@
 import { create } from "zustand";
-import {
-	startLogin,
-	startLogout,
-	getCurrentToken
-} from "@/lib/auth";
+import { startLogin, startLogout, getCurrentToken } from "@/lib/auth";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 interface AuthState {
