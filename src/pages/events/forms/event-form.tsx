@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEventForm } from "../hooks/use-event-form";
 import { FormField } from "@/components/forms/form-field";
 import { FieldGroup } from "@/components/ui/field";
+import { Show } from "@/components/flow/show";
 
 export default function EventForm() {
 	const { form, isPending, error } = useEventForm();
@@ -20,11 +21,11 @@ export default function EventForm() {
 			>
 				<h2 className="text-lg font-semibold">Create Event</h2>
 
-				{error && (
+				<Show.When condition={!!error}>
 					<div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded">
-						{error.message}
+						{error?.message}
 					</div>
-				)}
+				</Show.When>
 
 				<form.Field
 					name="name"
