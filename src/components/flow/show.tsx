@@ -1,5 +1,5 @@
 import type { FC, ReactElement, ReactNode } from "react";
-import { Children } from "react";
+import { Children, isValidElement } from "react";
 
 interface ShowProps {
 	children: ReactNode;
@@ -22,12 +22,15 @@ export const Show: FC<ShowProps> & {
 	let otherwise: ReactNode | null = null;
 
 	Children.forEach(props.children, (child) => {
-		// biome-ignore lint/suspicious/noExplicitAny: needed to be determined at runtime
-		const children = child as ReactElement<any>;
-		if (children.props.condition === undefined) {
-			otherwise = children;
-		} else if (!when && children.props.condition === true) {
-			when = children;
+		if (!isValidElement(child)) return;
+
+		const element = child as ReactElement<WhenProps | ElseProps>;
+		if ("condition" in element.props) {
+			if (!when && element.props.condition) {
+				when = element;
+			}
+		} else {
+			otherwise = element;
 		}
 	});
 
