@@ -1,15 +1,12 @@
 import { createEventSchema } from "@/api/events/schemas";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useEventForm } from "../hooks/use-event-form";
 import { FormField } from "@/components/forms/form-field";
 
 export default function EventForm() {
 	const { form, isPending, error } = useEventForm();
-
 	return (
 		<form
 			onSubmit={(e) => {
@@ -35,7 +32,7 @@ export default function EventForm() {
 					<FormField
 						label="Name"
 						name={field.name}
-						// error={field.state.meta.errors}
+						errors={field.state.meta.errors}
 					>
 						<Input
 							id={field.name}
@@ -56,7 +53,7 @@ export default function EventForm() {
 					<FormField
 						label="Slug"
 						name={field.name}
-						// errors={field.state.meta.errors}
+						errors={field.state.meta.errors}
 					>
 						<Input
 							id={field.name}
@@ -80,22 +77,6 @@ export default function EventForm() {
 							disabled={isPending}
 						/>
 					</FormField>
-				)}
-			</form.Field>
-
-			<form.Field name="isPublic">
-				{(field) => (
-					<div className="flex items-center space-x-2">
-						<Checkbox
-							id={field.name}
-							checked={field.state.value}
-							onCheckedChange={(checked) =>
-								field.handleChange(checked === true)
-							}
-							disabled={isPending}
-						/>
-						<Label htmlFor={field.name}>Public Event</Label>
-					</div>
 				)}
 			</form.Field>
 

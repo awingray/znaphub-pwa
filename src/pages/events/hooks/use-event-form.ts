@@ -1,4 +1,5 @@
 import { useCreateEvent } from "@/api/events/mutations";
+import { createEventSchema } from "@/api/events/schemas";
 import { useForm } from "@tanstack/react-form";
 
 export function useEventForm() {
@@ -13,7 +14,7 @@ export function useEventForm() {
 		},
 		onSubmit: async ({ value }) => {
 			mutate(value);
-		},
+		}
 	});
 
 	return { form, isPending, error };
