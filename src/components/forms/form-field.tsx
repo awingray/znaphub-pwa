@@ -1,23 +1,18 @@
-import { Label } from "@/components/ui/label";
-import type { ReactNode } from "react";
+import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 
 interface FormFieldProps {
 	label: string;
 	name: string;
-	errors?: unknown[];
-	children: ReactNode;
+	errors?: Array<{ message?: string } | undefined>;
+	children: React.ReactNode;
 }
 
 export function FormField({ label, name, errors, children }: FormFieldProps) {
 	return (
-		<div>
-			<Label htmlFor={name}>{label}</Label>
+		<Field>
+			<FieldLabel htmlFor={name}>{label}</FieldLabel>
 			{children}
-			 {errors && errors.length > 0 && (
-				<p className="text-sm text-red-500 mt-1">
-					{errors.join(", ")}
-				</p>
-			)}
-		</div>
+			<FieldError errors={errors} />
+		</Field>
 	);
 }
