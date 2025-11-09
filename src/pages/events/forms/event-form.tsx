@@ -21,7 +21,7 @@ export default function EventForm() {
 					<FieldError errors={[{ message: error?.message }]} />
 				</Show.When>
 
-				<EventFields form={form} />
+				<EventFields form={form} isPending={isPending} />
 
 				<form.AppForm>
 					<form.SubmitButton

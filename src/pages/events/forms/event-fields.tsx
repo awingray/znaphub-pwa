@@ -4,25 +4,30 @@ import { createEventSchema } from "@/api/events/schemas";
 
 export const EventFields = withForm({
 	...eventFormOptions,
-	render: ({ form }) => {
+	props: {
+		isPending: false,
+	},
+	render: ({ form, isPending }) => {
 		return (
 			<>
 				<form.AppField
 					name="name"
 					validators={{ onChange: createEventSchema.shape.name }}
 				>
-					{(field) => <field.InputField label="Name" />}
+					{(field) => <field.InputField label="Name" disabled={isPending} />}
 				</form.AppField>
 
 				<form.AppField
 					name="slug"
 					validators={{ onChange: createEventSchema.shape.slug }}
 				>
-					{(field) => <field.InputField label="Slug" />}
+					{(field) => <field.InputField label="Slug" disabled={isPending} />}
 				</form.AppField>
 
 				<form.AppField name="description">
-					{(field) => <field.TextareaField label="Description" />}
+					{(field) => (
+						<field.TextareaField label="Description" disabled={isPending} />
+					)}
 				</form.AppField>
 			</>
 		);
