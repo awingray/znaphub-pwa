@@ -44,9 +44,13 @@ export default function EventForm() {
 					)}
 				</form.AppField>
 
-				<Button type="submit" disabled={isPending}>
-					{isPending ? "Creating..." : "Create Event"}
-				</Button>
+				<form.AppForm>
+					<form.SubmitButton
+						label={isPending ? "Creating..." : "Create"}
+						className="w-full mt-2"
+						disabled={isPending}
+					/>
+				</form.AppForm>
 			</FieldGroup>
 		</form>
 	);

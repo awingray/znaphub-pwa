@@ -8,11 +8,10 @@ export default function TextareaField({
 	disabled,
 }: {
 	label: string;
-	disabled: boolean;
+	disabled?: boolean;
 }) {
 	const field = useFieldContext<string>();
 	const errors = useStore(field.store, (state) => state.meta.errors);
-
 	return (
 		<Field>
 			<FieldLabel htmlFor={field.name}>{label}</FieldLabel>

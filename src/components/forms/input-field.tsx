@@ -8,7 +8,7 @@ export default function InputField({
 	disabled,
 }: {
 	label: string;
-	disabled: boolean;
+	disabled?: boolean;
 }) {
 	const field = useFieldContext<string>();
 	const errors = useStore(field.store, (state) => state.meta.errors);
