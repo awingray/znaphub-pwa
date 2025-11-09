@@ -26,23 +26,28 @@ export default function EventForm() {
 					</div>
 				</Show.When>
 
-				<form.Field
+				<form.AppField
 					name="name"
 					validators={{ onChange: createEventSchema.shape.name }}
-				>
-					{(field) => <InputField label="Name" disabled={isPending} />}
-				</form.Field>
+					children={(field) => (
+						<field.InputField label="Name" disabled={isPending} />
+					)}
+				/>
 
-				<form.Field
+				<form.AppField
 					name="slug"
 					validators={{ onChange: createEventSchema.shape.slug }}
-				>
-					{(field) => <InputField label="Slug" disabled={isPending} />}
-				</form.Field>
+					children={(field) => (
+						<field.InputField label="Slug" disabled={isPending} />
+					)}
+				/>
 
-				<form.Field name="description">
-					{(field) => <TextareaField label="Description" disabled={isPending} />}
-				</form.Field>
+				<form.AppField
+					name="description"
+					children={(field) => (
+						<field.TextareaField label="Description" disabled={isPending} />
+					)}
+				/>
 
 				<Button type="submit" disabled={isPending}>
 					{isPending ? "Creating..." : "Create Event"}
