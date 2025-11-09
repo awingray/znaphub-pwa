@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button";
 import { useEventForm } from "../hooks/use-event-form";
 import { FieldGroup, FieldTitle } from "@/components/ui/field";
 import { Show } from "@/components/flow/show";
-import InputField from "@/components/forms/input-field";
-import TextareaField from "@/components/forms/textarea-field";
 
 export default function EventForm() {
 	const { form, isPending, error } = useEventForm();
@@ -29,25 +27,22 @@ export default function EventForm() {
 				<form.AppField
 					name="name"
 					validators={{ onChange: createEventSchema.shape.name }}
-					children={(field) => (
-						<field.InputField label="Name" disabled={isPending} />
-					)}
-				/>
+				>
+					{(field) => <field.InputField label="Name" disabled={isPending} />}
+				</form.AppField>
 
 				<form.AppField
 					name="slug"
 					validators={{ onChange: createEventSchema.shape.slug }}
-					children={(field) => (
-						<field.InputField label="Slug" disabled={isPending} />
-					)}
-				/>
+				>
+					{(field) => <field.InputField label="Slug" disabled={isPending} />}
+				</form.AppField>
 
-				<form.AppField
-					name="description"
-					children={(field) => (
+				<form.AppField name="description">
+					{(field) => (
 						<field.TextareaField label="Description" disabled={isPending} />
 					)}
-				/>
+				</form.AppField>
 
 				<Button type="submit" disabled={isPending}>
 					{isPending ? "Creating..." : "Create Event"}
