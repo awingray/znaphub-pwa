@@ -3,7 +3,7 @@ import { useStore } from "@tanstack/react-form";
 import { useFieldContext } from "@/hooks/form-context";
 import { Input } from "@/components/ui/input";
 
-export default function FormInput({
+export default function InputField({
 	label,
 	disabled,
 }: {

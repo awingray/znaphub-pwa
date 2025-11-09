@@ -1,9 +1,9 @@
 import { useCreateEvent } from "@/api/events/mutations";
-import { useForm } from "@tanstack/react-form";
+import { useAppForm } from "@/hooks/use-app-form";
 
 export function useEventForm() {
 	const { mutate, isPending, error } = useCreateEvent();
-	const form = useForm({
+	const form = useAppForm({
 		defaultValues: {
 			name: "",
 			slug: "",

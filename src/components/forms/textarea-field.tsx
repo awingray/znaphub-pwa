@@ -3,7 +3,7 @@ import { useStore } from "@tanstack/react-form";
 import { useFieldContext } from "@/hooks/form-context";
 import { Textarea } from "../ui/textarea";
 
-export default function FormTextarea({
+export default function TextareaField({
 	label,
 	disabled,
 }: {

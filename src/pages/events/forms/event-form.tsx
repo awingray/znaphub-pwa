@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { useEventForm } from "../hooks/use-event-form";
 import { FieldGroup, FieldTitle } from "@/components/ui/field";
 import { Show } from "@/components/flow/show";
-import FormInput from "@/components/forms/form-input";
-import FormTextarea from "@/components/forms/form-textarea";
+import InputField from "@/components/forms/input-field";
+import TextareaField from "@/components/forms/textarea-field";
 
 export default function EventForm() {
 	const { form, isPending, error } = useEventForm();
@@ -30,18 +30,18 @@ export default function EventForm() {
 					name="name"
 					validators={{ onChange: createEventSchema.shape.name }}
 				>
-					{(field) => <FormInput label="Name" disabled={isPending} />}
+					{(field) => <InputField label="Name" disabled={isPending} />}
 				</form.Field>
 
 				<form.Field
 					name="slug"
 					validators={{ onChange: createEventSchema.shape.slug }}
 				>
-					{(field) => <FormInput label="Slug" disabled={isPending} />}
+					{(field) => <InputField label="Slug" disabled={isPending} />}
 				</form.Field>
 
 				<form.Field name="description">
-					{(field) => <FormTextarea label="Description" disabled={isPending} />}
+					{(field) => <TextareaField label="Description" disabled={isPending} />}
 				</form.Field>
 
 				<Button type="submit" disabled={isPending}>
