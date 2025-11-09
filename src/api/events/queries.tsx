@@ -11,6 +11,7 @@ export const EventListQueryOptions = () =>
 			const response = await api.get(ENDPOINTS.EVENTS.LIST);
 			return eventListschema.parse(response);
 		},
+		initialData: [],
 	});
 
 export const EventDetailQueryOptions = (id: string) =>
