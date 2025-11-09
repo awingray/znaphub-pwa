@@ -1,11 +1,10 @@
 import { createEventSchema } from "@/api/events/schemas";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useEventForm } from "../hooks/use-event-form";
-import { FormField } from "@/components/forms/form-field";
 import { FieldGroup, FieldTitle } from "@/components/ui/field";
 import { Show } from "@/components/flow/show";
+import FormInput from "@/components/forms/form-input";
+import FormTextarea from "@/components/forms/form-textarea";
 
 export default function EventForm() {
 	const { form, isPending, error } = useEventForm();
@@ -31,56 +30,18 @@ export default function EventForm() {
 					name="name"
 					validators={{ onChange: createEventSchema.shape.name }}
 				>
-					{(field) => (
-						<FormField
-							label="Name"
-							name={field.name}
-							errors={field.state.meta.errors}
-						>
-							<Input
-								id={field.name}
-								value={field.state.value}
-								onChange={(e) => field.handleChange(e.target.value)}
-								onBlur={field.handleBlur}
-								disabled={isPending}
-							/>
-						</FormField>
-					)}
+					{(field) => <FormInput label="Name" disabled={isPending} />}
 				</form.Field>
 
 				<form.Field
 					name="slug"
 					validators={{ onChange: createEventSchema.shape.slug }}
 				>
-					{(field) => (
-						<FormField
-							label="Slug"
-							name={field.name}
-							errors={field.state.meta.errors}
-						>
-							<Input
-								id={field.name}
-								value={field.state.value}
-								onChange={(e) => field.handleChange(e.target.value)}
-								onBlur={field.handleBlur}
-								disabled={isPending}
-							/>
-						</FormField>
-					)}
+					{(field) => <FormInput label="Slug" disabled={isPending} />}
 				</form.Field>
 
 				<form.Field name="description">
-					{(field) => (
-						<FormField label="Description" name={field.name}>
-							<Textarea
-								id={field.name}
-								value={field.state.value}
-								onChange={(e) => field.handleChange(e.target.value)}
-								onBlur={field.handleBlur}
-								disabled={isPending}
-							/>
-						</FormField>
-					)}
+					{(field) => <FormTextarea label="Description" disabled={isPending} />}
 				</form.Field>
 
 				<Button type="submit" disabled={isPending}>
