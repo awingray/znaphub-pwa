@@ -1,7 +1,6 @@
 import { createEventSchema } from "@/api/events/schemas";
-import { Button } from "@/components/ui/button";
 import { useEventForm } from "../hooks/use-event-form";
-import { FieldGroup, FieldTitle } from "@/components/ui/field";
+import { FieldError, FieldGroup, FieldTitle } from "@/components/ui/field";
 import { Show } from "@/components/flow/show";
 
 export default function EventForm() {
@@ -19,9 +18,7 @@ export default function EventForm() {
 				<FieldTitle>Create Event</FieldTitle>
 
 				<Show.When condition={!!error}>
-					<div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded">
-						{error?.message}
-					</div>
+					<FieldError errors={[{ message: error?.message }]} />
 				</Show.When>
 
 				<form.AppField
