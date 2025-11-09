@@ -2,15 +2,14 @@ import { useFormContext } from "@/hooks/form-context";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-type Props = {
+interface Props {
 	label: string;
 	className?: string;
 	disabled?: boolean;
-};
+}
 
 export const SubmitButton = ({ label, className, disabled }: Props) => {
 	const form = useFormContext();
-
 	return (
 		<form.Subscribe selector={(state) => [state.isSubmitting, state.canSubmit]}>
 			{([isSubmitting, canSubmit]) => (
