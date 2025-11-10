@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as CallbackRouteImport } from './routes/callback'
-import { Route as LoginRouteRouteImport } from './routes/login/route'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthEventsRouteRouteImport } from './routes/_auth/events/route'
@@ -20,11 +19,6 @@ const CallbackRoute = CallbackRouteImport.update({
   path: '/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginRouteRoute = LoginRouteRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any).lazy(() => import('./routes/login/route.lazy').then((d) => d.Route))
 const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/_auth',
   getParentRoute: () => rootRouteImport,
@@ -33,7 +27,7 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 const AuthEventsRouteRoute = AuthEventsRouteRouteImport.update({
   id: '/events',
   path: '/events',
@@ -42,13 +36,11 @@ const AuthEventsRouteRoute = AuthEventsRouteRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/login': typeof LoginRouteRoute
   '/callback': typeof CallbackRoute
   '/events': typeof AuthEventsRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/login': typeof LoginRouteRoute
   '/callback': typeof CallbackRoute
   '/events': typeof AuthEventsRouteRoute
 }
@@ -56,22 +48,20 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
-  '/login': typeof LoginRouteRoute
   '/callback': typeof CallbackRoute
   '/_auth/events': typeof AuthEventsRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/callback' | '/events'
+  fullPaths: '/' | '/callback' | '/events'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/callback' | '/events'
-  id: '__root__' | '/' | '/_auth' | '/login' | '/callback' | '/_auth/events'
+  to: '/' | '/callback' | '/events'
+  id: '__root__' | '/' | '/_auth' | '/callback' | '/_auth/events'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  LoginRouteRoute: typeof LoginRouteRoute
   CallbackRoute: typeof CallbackRoute
 }
 
@@ -82,13 +72,6 @@ declare module '@tanstack/react-router' {
       path: '/callback'
       fullPath: '/callback'
       preLoaderRoute: typeof CallbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_auth': {
@@ -130,7 +113,6 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
-  LoginRouteRoute: LoginRouteRoute,
   CallbackRoute: CallbackRoute,
 }
 export const routeTree = rootRouteImport

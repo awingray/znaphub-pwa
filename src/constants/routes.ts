@@ -1,5 +1,4 @@
 export const ROUTES = {
-	LOGIN: "/login",
 	HOME: "/",
 	EVENTS: "/events",
 	CALLBACK: "/callback",

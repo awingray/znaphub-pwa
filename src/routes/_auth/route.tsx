@@ -7,7 +7,7 @@ export const Route = createFileRoute(ROUTES.AUTH.BASE)({
 	beforeLoad: async ({ location }) => {
 		if (useAuthStore.getState().isAuthenticated) return;
 		throw redirect({
-			to: ROUTES.LOGIN,
+			to: ROUTES.HOME,
 			search: {
 				redirect: location.href,
 			},

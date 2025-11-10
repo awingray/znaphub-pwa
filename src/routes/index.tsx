@@ -1,12 +1,18 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { ROUTES } from "@/constants/routes";
-import LandingComponent from "@/pages/landing";
 import { useAuthStore } from "@/stores/auth-store";
 
 export const Route = createFileRoute(ROUTES.HOME)({
-	beforeLoad: () => {
+	beforeLoad: ({ search }) => {
 		if (!useAuthStore.getState().isAuthenticated) return;
-		throw redirect({ to: ROUTES.EVENTS });
+		const redirectPath = search.redirect || ROUTES.EVENTS;
+		throw redirect({
+			to: redirectPath as string,
+		});
 	},
-	component: LandingComponent,
+	validateSearch: (search: Record<string, unknown>) => {
+		return {
+			redirect: search.redirect as string | undefined,
+		};
+	},
 });
