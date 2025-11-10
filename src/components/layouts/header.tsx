@@ -3,9 +3,9 @@ import { Button } from "../ui/button";
 
 export default function Header() {
 	const logout = useAuthStore((state) => state.logout);
-	const login = useAuthStore((state) => state.login);
-	const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-	const handleAuth = () => (isAuthenticated ? logout() : login());
+	const handleLogout = () => {
+		logout();
+	};
 
 	return (
 		<header className="border-b bg-background">
@@ -15,8 +15,8 @@ export default function Header() {
 				</div>
 
 				<div className="flex items-center gap-3">
-					<Button variant="outline" size="sm" onClick={handleAuth}>
-						{isAuthenticated ? "Logout" : "Login"}
+					<Button variant="outline" size="sm" onClick={handleLogout}>
+						Logout
 					</Button>
 				</div>
 			</div>
