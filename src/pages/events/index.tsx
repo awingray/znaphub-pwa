@@ -11,11 +11,12 @@ export default function EventsComponent() {
 	const { data } = useQuery(EventListQueryOptions());
 	const [openCreateDialog, setOpenCreateDialog] = useState(false);
 	const handleOpenCreateDialog = () => setOpenCreateDialog(true);
+	const hasData = !!data.length;
 	return (
 		<div>
-			<EventHeader onCreate={handleOpenCreateDialog} />
+			<EventHeader onCreate={handleOpenCreateDialog} showCreate={hasData} />
 			<Show>
-				<Show.When condition={!!data.length}>
+				<Show.When condition={hasData}>
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 						<Each
 							of={data}
