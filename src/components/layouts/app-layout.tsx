@@ -1,12 +1,15 @@
 import { Outlet } from "@tanstack/react-router";
 import Header from "./header";
+import { PageLayout } from "./page-layout";
 
 export default function AppLayout() {
 	return (
-		<div className="h-full group">
+		<div className="flex min-h-screen flex-col">
 			<Header />
-			<main className="container mx-auto px-4 py-6">
-				<Outlet />
+			<main className="flex-1 bg-muted/30">
+				<PageLayout className="py-6">
+					<Outlet />
+				</PageLayout>
 			</main>
 		</div>
 	);

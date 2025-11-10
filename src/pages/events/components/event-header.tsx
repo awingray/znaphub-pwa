@@ -4,7 +4,7 @@ interface EventsHeaderProps {
 	onCreate: () => void;
 }
 
-export default function EventsHeader({ onCreate }: EventsHeaderProps) {
+export default function EventHeader({ onCreate }: EventsHeaderProps) {
 	return (
 		<div className="flex items-center justify-between mb-6">
 			<div>

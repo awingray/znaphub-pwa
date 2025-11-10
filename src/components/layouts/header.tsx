@@ -1,5 +1,6 @@
 import { useAuthStore } from "@/stores/auth-store";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+import { PageLayout } from "@/components/layouts/page-layout";
 
 export default function Header() {
 	const logout = useAuthStore((state) => state.logout);
@@ -9,17 +10,14 @@ export default function Header() {
 
 	return (
 		<header className="border-b bg-background">
-			<div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+			<PageLayout className="flex h-16 items-center justify-between">
 				<div className="text-lg font-semibold tracking-tight cursor-pointer">
 					<span className="text-primary">ZnapHub</span>
 				</div>
-
-				<div className="flex items-center gap-3">
-					<Button variant="outline" size="sm" onClick={handleLogout}>
-						Logout
-					</Button>
-				</div>
-			</div>
+				<Button variant="outline" size="sm" onClick={handleLogout}>
+					Logout
+				</Button>
+			</PageLayout>
 		</header>
 	);
 }
