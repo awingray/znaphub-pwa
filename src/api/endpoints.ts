@@ -4,4 +4,7 @@ export const ENDPOINTS = {
 		DETAIL: (id: string) => `/events/${id}`,
 		CREATE: "/events",
 	},
+	QRCODES: {
+		CREATE: "/qrcodes",
+	},
 } as const;
