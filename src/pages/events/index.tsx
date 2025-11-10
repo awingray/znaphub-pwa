@@ -8,7 +8,6 @@ export default function EventListComponent() {
 	const { data } = useQuery(EventListQueryOptions());
 	return (
 		<div>
-			Hello "/_auth/events"!
 			<Show.When condition={!!data.length}>
 				<Each of={data} render={(event) => event.name} />
 			</Show.When>

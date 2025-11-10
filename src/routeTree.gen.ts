@@ -8,113 +8,113 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as CallbackRouteImport } from './routes/callback'
-import { Route as AuthRouteRouteImport } from './routes/_auth/route'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthEventsRouteRouteImport } from './routes/_auth/events/route'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as CallbackRouteImport } from "./routes/callback";
+import { Route as AuthRouteRouteImport } from "./routes/_auth/route";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as AuthEventsRouteRouteImport } from "./routes/_auth/events/route";
 
 const CallbackRoute = CallbackRouteImport.update({
-  id: '/callback',
-  path: '/callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/callback",
+	path: "/callback",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const AuthRouteRoute = AuthRouteRouteImport.update({
-  id: '/_auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/_auth",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+	id: "/",
+	path: "/",
+	getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import("./routes/index.lazy").then((d) => d.Route));
 const AuthEventsRouteRoute = AuthEventsRouteRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => AuthRouteRoute,
-} as any)
+	id: "/events",
+	path: "/events",
+	getParentRoute: () => AuthRouteRoute,
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/callback': typeof CallbackRoute
-  '/events': typeof AuthEventsRouteRoute
+	"/": typeof IndexRoute;
+	"/callback": typeof CallbackRoute;
+	"/events": typeof AuthEventsRouteRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/callback': typeof CallbackRoute
-  '/events': typeof AuthEventsRouteRoute
+	"/": typeof IndexRoute;
+	"/callback": typeof CallbackRoute;
+	"/events": typeof AuthEventsRouteRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/_auth': typeof AuthRouteRouteWithChildren
-  '/callback': typeof CallbackRoute
-  '/_auth/events': typeof AuthEventsRouteRoute
+	__root__: typeof rootRouteImport;
+	"/": typeof IndexRoute;
+	"/_auth": typeof AuthRouteRouteWithChildren;
+	"/callback": typeof CallbackRoute;
+	"/_auth/events": typeof AuthEventsRouteRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/callback' | '/events'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/callback' | '/events'
-  id: '__root__' | '/' | '/_auth' | '/callback' | '/_auth/events'
-  fileRoutesById: FileRoutesById
+	fileRoutesByFullPath: FileRoutesByFullPath;
+	fullPaths: "/" | "/callback" | "/events";
+	fileRoutesByTo: FileRoutesByTo;
+	to: "/" | "/callback" | "/events";
+	id: "__root__" | "/" | "/_auth" | "/callback" | "/_auth/events";
+	fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  CallbackRoute: typeof CallbackRoute
+	IndexRoute: typeof IndexRoute;
+	AuthRouteRoute: typeof AuthRouteRouteWithChildren;
+	CallbackRoute: typeof CallbackRoute;
 }
 
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/callback': {
-      id: '/callback'
-      path: '/callback'
-      fullPath: '/callback'
-      preLoaderRoute: typeof CallbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_auth': {
-      id: '/_auth'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_auth/events': {
-      id: '/_auth/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof AuthEventsRouteRouteImport
-      parentRoute: typeof AuthRouteRoute
-    }
-  }
+declare module "@tanstack/react-router" {
+	interface FileRoutesByPath {
+		"/callback": {
+			id: "/callback";
+			path: "/callback";
+			fullPath: "/callback";
+			preLoaderRoute: typeof CallbackRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/_auth": {
+			id: "/_auth";
+			path: "";
+			fullPath: "";
+			preLoaderRoute: typeof AuthRouteRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/": {
+			id: "/";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof IndexRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/_auth/events": {
+			id: "/_auth/events";
+			path: "/events";
+			fullPath: "/events";
+			preLoaderRoute: typeof AuthEventsRouteRouteImport;
+			parentRoute: typeof AuthRouteRoute;
+		};
+	}
 }
 
 interface AuthRouteRouteChildren {
-  AuthEventsRouteRoute: typeof AuthEventsRouteRoute
+	AuthEventsRouteRoute: typeof AuthEventsRouteRoute;
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
-  AuthEventsRouteRoute: AuthEventsRouteRoute,
-}
+	AuthEventsRouteRoute: AuthEventsRouteRoute,
+};
 
 const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
-  AuthRouteRouteChildren,
-)
+	AuthRouteRouteChildren,
+);
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AuthRouteRoute: AuthRouteRouteWithChildren,
-  CallbackRoute: CallbackRoute,
-}
+	IndexRoute: IndexRoute,
+	AuthRouteRoute: AuthRouteRouteWithChildren,
+	CallbackRoute: CallbackRoute,
+};
 export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+	._addFileChildren(rootRouteChildren)
+	._addFileTypes<FileRouteTypes>();
