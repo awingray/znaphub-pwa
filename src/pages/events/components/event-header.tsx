@@ -3,10 +3,13 @@ import { Button } from "@/components/ui/button";
 
 interface EventsHeaderProps {
 	onCreate: () => void;
-    showCreate: boolean;
+	showCreate: boolean;
 }
 
-export default function EventHeader({ onCreate, showCreate = true }: EventsHeaderProps) {
+export default function EventHeader({
+	onCreate,
+	showCreate = true,
+}: EventsHeaderProps) {
 	return (
 		<div className="flex items-center justify-between mb-6">
 			<div>

@@ -6,6 +6,7 @@ import EventHeader from "./components/event-header";
 import EventCard from "./components/event-card";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import EventCreateDialog from "./components/event-create-dialog";
 
 export default function EventsComponent() {
 	const { data } = useQuery(EventListQueryOptions());
@@ -15,6 +16,10 @@ export default function EventsComponent() {
 	return (
 		<div>
 			<EventHeader onCreate={handleOpenCreateDialog} showCreate={hasData} />
+			<EventCreateDialog
+				open={openCreateDialog}
+				onOpenChange={setOpenCreateDialog}
+			/>
 			<Show>
 				<Show.When condition={hasData}>
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

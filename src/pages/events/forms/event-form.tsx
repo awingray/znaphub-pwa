@@ -3,7 +3,11 @@ import { FieldError, FieldGroup, FieldTitle } from "@/components/ui/field";
 import { Show } from "@/components/flow/show";
 import { EventFields } from "./event-fields";
 
-export default function EventForm() {
+interface EventFormProps {
+	onSuccess?: () => void;
+}
+
+export default function EventForm({ onSuccess }: EventFormProps) {
 	const { form, isPending, error } = useEventForm();
 	return (
 		<form
@@ -11,6 +15,7 @@ export default function EventForm() {
 				e.preventDefault();
 				e.stopPropagation();
 				form.handleSubmit();
+				onSuccess?.();
 			}}
 			className="space-y-4 mb-8 p-4 border rounded-lg"
 		>
