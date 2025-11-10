@@ -1,6 +1,11 @@
-import { useAuthStore } from "@/stores/auth-store";
+import Header from "@/components/layouts/header";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createRootRoute({
-	component: () => <Outlet />,
+	component: () => (
+		<>
+			<Header />
+			<Outlet />
+		</>
+	),
 });
