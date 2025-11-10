@@ -74,7 +74,7 @@ class ApiClient {
 
 		if (response.status === 204) return {} as T;
 
-		return response.json().catch(() => ({} as T));
+		return response.json().catch(() => ({}) as T);
 	}
 
 	get<T>(endpoint: string, config?: RequestConfig): Promise<T> {
