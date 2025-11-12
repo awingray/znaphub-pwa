@@ -22,9 +22,9 @@ export default function EventForm({ onSuccess }: EventFormProps) {
 			<FieldGroup>
 				<FieldTitle>Create Event</FieldTitle>
 
-				<Show.When condition={!!error}>
+				<Show when={!!error}>
 					<FieldError errors={[{ message: error?.message }]} />
-				</Show.When>
+				</Show>
 
 				<EventFields form={form} isPending={isPending} />
 

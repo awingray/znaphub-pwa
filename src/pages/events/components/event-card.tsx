@@ -1,6 +1,8 @@
 import type { Event } from "@/api/events/schemas";
 import { useCreateQrCode } from "@/api/qrcodes/mutations";
+import { Show } from "@/components/flow/show";
 import { Button } from "@/components/ui/button";
+import { QRCodeSVG } from "qrcode.react";
 import {
 	Card,
 	CardHeader,
@@ -38,6 +40,14 @@ export default function EventCard({ event }: EventCardProps) {
 						Created: {new Date(event.createdAt).toLocaleString()}
 					</div>
 				</div>
+				<Show when={!!data?.uploadUrl}>
+					<div className="flex flex-col items-center gap-2 mt-4">
+						<QRCodeSVG value={data?.uploadUrl ?? ""} size={128} />
+						<p className="text-xs text-muted-foreground break-all text-center">
+							{data?.uploadUrl}
+						</p>
+					</div>
+				</Show>
 			</CardContent>
 
 			<CardFooter className="flex justify-between items-center">

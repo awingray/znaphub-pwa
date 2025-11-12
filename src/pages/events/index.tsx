@@ -20,16 +20,9 @@ export default function EventsComponent() {
 				open={openCreateDialog}
 				onOpenChange={setOpenCreateDialog}
 			/>
-			<Show>
-				<Show.When condition={hasData}>
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-						<Each
-							of={data}
-							render={(event) => <EventCard key={event.id} event={event} />}
-						/>
-					</div>
-				</Show.When>
-				<Show.Else>
+			<Show
+				when={hasData}
+				fallback={
 					<div className="rounded-lg border bg-panel p-6 text-center">
 						<p className="text-lg font-medium">No events yet</p>
 						<p className="mt-2 text-sm text-muted-foreground">
@@ -39,7 +32,14 @@ export default function EventsComponent() {
 							<Button onClick={handleOpenCreateDialog}>Create Event</Button>
 						</div>
 					</div>
-				</Show.Else>
+				}
+			>
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+					<Each
+						of={data}
+						render={(event) => <EventCard key={event.id} event={event} />}
+					/>
+				</div>
 			</Show>
 		</div>
 	);

@@ -19,11 +19,11 @@ export default function EventHeader({
 				</p>
 			</div>
 
-			<Show.When condition={showCreate}>
+			<Show when={showCreate}>
 				<Button size="sm" onClick={onCreate}>
 					Create Event
 				</Button>
-			</Show.When>
+			</Show>
 		</div>
 	);
 }
