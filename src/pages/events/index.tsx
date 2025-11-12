@@ -22,9 +22,7 @@ export default function EventsComponent() {
 			/>
 			<Show
 				when={hasData}
-				fallback={
-					<EventCreateFallback onCreateEvent={handleOpenCreateDialog} />
-				}
+				fallback={<EventCreateFallback onCreate={handleOpenCreateDialog} />}
 			>
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 					<Each

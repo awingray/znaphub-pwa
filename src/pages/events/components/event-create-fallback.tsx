@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 
 interface EventCreateFallbackProps {
-	onCreateEvent: () => void;
+	onCreate: () => void;
 }
 
 export default function EventCreateFallback({
-	onCreateEvent,
+	onCreate,
 }: EventCreateFallbackProps) {
 	return (
 		<div className="rounded-lg border bg-panel p-6 text-center">
@@ -14,7 +14,7 @@ export default function EventCreateFallback({
 				Create your first event to get started
 			</p>
 			<div className="mt-4">
-				<Button onClick={onCreateEvent}>Create Event</Button>
+				<Button onClick={onCreate}>Create Event</Button>
 			</div>
 		</div>
 	);
