@@ -1,4 +1,5 @@
 import type { Event } from "@/api/events/schemas";
+import { useCreateQrCode } from "@/api/qrcodes/mutations";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -10,10 +11,14 @@ import {
 
 interface EventCardProps {
 	event: Event;
-	onOpen?: (event: Event) => void;
 }
 
-export default function EventCard({ event, onOpen }: EventCardProps) {
+export default function EventCard({ event }: EventCardProps) {
+	const { mutate, data, isPending } = useCreateQrCode();
+	const handleCreateQrCode = () => {
+		mutate({ eventId: event.id });
+	};
+
 	return (
 		<Card className="flex flex-col justify-between h-full">
 			<CardHeader>
@@ -36,16 +41,8 @@ export default function EventCard({ event, onOpen }: EventCardProps) {
 			</CardContent>
 
 			<CardFooter className="flex justify-between items-center">
-				<Button size="sm" variant="ghost" onClick={() => onOpen?.(event)}>
-					View
-				</Button>
-				<Button
-					size="sm"
-					onClick={() =>
-						navigator.clipboard?.writeText(`${location.origin}/e/${event.slug}`)
-					}
-				>
-					Copy Link
+				<Button size="sm" onClick={handleCreateQrCode} disabled={isPending}>
+					Create QR Code
 				</Button>
 			</CardFooter>
 		</Card>

@@ -25,13 +25,7 @@ export default function EventsComponent() {
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 						<Each
 							of={data}
-							render={(event) => (
-								<EventCard
-									key={event.id}
-									event={event}
-									onOpen={(event) => console.log(event)}
-								/>
-							)}
+							render={(event) => <EventCard key={event.id} event={event} />}
 						/>
 					</div>
 				</Show.When>

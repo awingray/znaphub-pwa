@@ -1,16 +1,25 @@
 import { useMutation } from "@tanstack/react-query";
 import { api } from "../api-client";
 import { ENDPOINTS } from "../endpoints";
-import { createQrCodeSchema, type CreateQrCodePayload } from "./schema";
+import {
+	createQrCodeResponseSchema,
+	createQrCodeSchema,
+	type CreateQrCodePayload,
+	type CreateQrCodeResponse,
+} from "./schema";
 
-const createQrCode = async (qrCodePayload: CreateQrCodePayload) => {
+export const createQrCode = async (
+	qrCodePayload: CreateQrCodePayload,
+): Promise<CreateQrCodeResponse> => {
 	const payload = createQrCodeSchema.parse(qrCodePayload);
-	const response = await api.post(ENDPOINTS.QRCODES.CREATE, payload);
-	return response;
+	const response = await api.post<CreateQrCodeResponse>(
+		ENDPOINTS.QRCODES.CREATE,
+		payload,
+	);
+	return createQrCodeResponseSchema.parse(response);
 };
 
-export const useCreateQrCode = () => {
-	return useMutation({
-		mutationFn: (payload: CreateQrCodePayload) => createQrCode(payload),
+export const useCreateQrCode = () =>
+	useMutation({
+		mutationFn: createQrCode,
 	});
-};
