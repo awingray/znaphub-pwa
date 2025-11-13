@@ -9,6 +9,7 @@ import EventCreateDialog from "./components/event-create-dialog";
 import EventCreateFallback from "./components/event-create-fallback";
 import Match from "@/components/flow/match";
 import { Switch } from "@/components/flow/switch";
+import EventListSkeleton from "./components/event-list-skeleton";
 
 export default function EventsComponent() {
 	const { data, isFetching } = useQuery(EventListQueryOptions());
@@ -25,7 +26,7 @@ export default function EventsComponent() {
 			/>
 			<Switch>
 				<Match when={isFetching}>
-					<div>Loading...</div>
+					<EventListSkeleton />
 				</Match>
 				<Match when={hasData}>
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
