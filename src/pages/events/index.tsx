@@ -35,7 +35,7 @@ export default function EventsComponent() {
 						/>
 					</div>
 				</Match>
-				<Match when={!hasData}>
+				<Match>
 					<EventCreateFallback onCreate={handleOpenCreateDialog} />
 				</Match>
 			</Switch>

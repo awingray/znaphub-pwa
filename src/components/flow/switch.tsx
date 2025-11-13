@@ -5,7 +5,10 @@ export const Switch = ({ children }: PropsWithChildren) => {
 	const childArray = Children.toArray(children);
 
 	const firstMatch = childArray.find((child) => {
-		return isValidElement<MatchProps>(child) && child.props.when === true;
+		return (
+			isValidElement<MatchProps>(child) &&
+			(child.props.when === true || child.props.when === undefined)
+		);
 	});
 
 	return <>{firstMatch || null}</>;
