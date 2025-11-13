@@ -1,6 +1,6 @@
 import { useEventForm } from "../hooks/use-event-form";
 import { FieldError, FieldGroup, FieldTitle } from "@/components/ui/field";
-import { Show } from "@/components/flow/show";
+import Show from "@/components/flow/show";
 import { EventFields } from "./event-fields";
 
 interface EventFormProps {

@@ -1,11 +1,12 @@
-import type { FC, ReactNode } from "react";
+import type { BooleanLike } from "@/types/boolean-like";
+import type { ReactNode } from "react";
 
 interface ShowProps {
-	when: boolean;
+	when: BooleanLike;
 	children: ReactNode;
 	fallback?: ReactNode;
 }
 
-export const Show: FC<ShowProps> = ({ when, children, fallback = null }) => {
+export default function Show({ when, children, fallback = null }: ShowProps) {
 	return <>{when ? children : fallback}</>;
-};
+}

@@ -1,4 +1,4 @@
-import { Show } from "@/components/flow/show";
+import Show from "@/components/flow/show";
 import { Button } from "@/components/ui/button";
 
 interface EventsHeaderProps {

@@ -1,6 +1,6 @@
 import type { Event } from "@/api/events/schemas";
 import { useCreateQrCode } from "@/api/qrcodes/mutations";
-import { Show } from "@/components/flow/show";
+import Show from "@/components/flow/show";
 import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
 import {
