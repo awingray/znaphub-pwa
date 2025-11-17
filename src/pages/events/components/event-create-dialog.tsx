@@ -15,6 +15,7 @@ export default function EventCreateDialog({
 	open,
 	onOpenChange,
 }: EventCreateDialogProps) {
+	const handleOnSuccess = () => onOpenChange(false);
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="max-w-lg">
@@ -23,7 +24,7 @@ export default function EventCreateDialog({
 				</DialogHeader>
 
 				<div className="mt-4">
-					<EventForm onSuccess={() => onOpenChange(false)} />
+					<EventForm onSuccess={handleOnSuccess} />
 				</div>
 			</DialogContent>
 		</Dialog>

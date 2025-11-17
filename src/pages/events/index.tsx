@@ -1,6 +1,5 @@
 import { EventListQueryOptions } from "@/api/events/queries";
 import Each from "@/components/flow/each";
-import Show from "@/components/flow/show";
 import { useQuery } from "@tanstack/react-query";
 import EventHeader from "./components/event-header";
 import EventCard from "./components/event-card";
