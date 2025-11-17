@@ -10,6 +10,7 @@ import {
 	CardContent,
 	CardFooter,
 } from "@/components/ui/card";
+import QrCodeCard from "./qrcode-card";
 
 interface EventCardProps {
 	event: Event;
@@ -41,12 +42,7 @@ export default function EventCard({ event }: EventCardProps) {
 					</div>
 				</div>
 				<Show when={!!data?.uploadUrl}>
-					<div className="flex flex-col items-center gap-2 mt-4">
-						<QRCodeSVG value={data?.uploadUrl ?? ""} size={128} />
-						<p className="text-xs text-muted-foreground break-all text-center">
-							{data?.uploadUrl}
-						</p>
-					</div>
+					<QrCodeCard uploadUrl={data?.uploadUrl} />
 				</Show>
 			</CardContent>
 
