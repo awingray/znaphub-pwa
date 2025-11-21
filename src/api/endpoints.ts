@@ -7,4 +7,7 @@ export const ENDPOINTS = {
 	QRCODES: {
 		CREATE: "/qrcodes",
 	},
+	PHOTOS: {
+		CREATE: (shortId: string) => `/photos/${shortId}`,
+	},
 } as const;

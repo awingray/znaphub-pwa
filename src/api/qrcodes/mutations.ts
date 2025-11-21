@@ -6,7 +6,7 @@ import {
 	createQrCodeSchema,
 	type CreateQrCodePayload,
 	type CreateQrCodeResponse,
-} from "./schema";
+} from "./schemas";
 
 export const createQrCode = async (
 	qrCodePayload: CreateQrCodePayload,

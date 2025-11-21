@@ -13,6 +13,7 @@ export default function UploadComponent() {
 	const handleUpload = () => {
 		console.log("called handle upload");
 		console.log(file);
+		console.log(shortId);
 	};
 
 	return (
