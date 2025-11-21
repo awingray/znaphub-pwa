@@ -5,6 +5,7 @@ export const ROUTES = {
 	UPLOAD: "/upload/$shortId",
 	AUTH: {
 		BASE: "/_auth",
-		EVENTS: "/_auth/events",
+		EVENTS: {BASE: "/_auth/events", PHOTOS: '/_auth/events/$eventId/photos'}
+		
 	},
 } as const;

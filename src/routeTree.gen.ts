@@ -9,13 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as CallbackRouteImport } from './routes/callback'
+import { Route as CallbackRouteRouteImport } from './routes/callback/route'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as UploadShortIdRouteImport } from './routes/upload/$shortId'
+import { Route as UploadShortIdRouteRouteImport } from './routes/upload/$shortId/route'
 import { Route as AuthEventsRouteRouteImport } from './routes/_auth/events/route'
+import { Route as AuthEventsEventIdPhotosRouteRouteImport } from './routes/_auth/events/$eventId/photos/route'
 
-const CallbackRoute = CallbackRouteImport.update({
+const CallbackRouteRoute = CallbackRouteRouteImport.update({
   id: '/callback',
   path: '/callback',
   getParentRoute: () => rootRouteImport,
@@ -29,42 +30,67 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
-const UploadShortIdRoute = UploadShortIdRouteImport.update({
+const UploadShortIdRouteRoute = UploadShortIdRouteRouteImport.update({
   id: '/upload/$shortId',
   path: '/upload/$shortId',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/upload/$shortId/route.lazy').then((d) => d.Route),
+)
 const AuthEventsRouteRoute = AuthEventsRouteRouteImport.update({
   id: '/events',
   path: '/events',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const AuthEventsEventIdPhotosRouteRoute =
+  AuthEventsEventIdPhotosRouteRouteImport.update({
+    id: '/$eventId/photos',
+    path: '/$eventId/photos',
+    getParentRoute: () => AuthEventsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_auth/events/$eventId/photos/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/callback': typeof CallbackRoute
-  '/events': typeof AuthEventsRouteRoute
-  '/upload/$shortId': typeof UploadShortIdRoute
+  '/callback': typeof CallbackRouteRoute
+  '/events': typeof AuthEventsRouteRouteWithChildren
+  '/upload/$shortId': typeof UploadShortIdRouteRoute
+  '/events/$eventId/photos': typeof AuthEventsEventIdPhotosRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/callback': typeof CallbackRoute
-  '/events': typeof AuthEventsRouteRoute
-  '/upload/$shortId': typeof UploadShortIdRoute
+  '/callback': typeof CallbackRouteRoute
+  '/events': typeof AuthEventsRouteRouteWithChildren
+  '/upload/$shortId': typeof UploadShortIdRouteRoute
+  '/events/$eventId/photos': typeof AuthEventsEventIdPhotosRouteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
-  '/callback': typeof CallbackRoute
-  '/_auth/events': typeof AuthEventsRouteRoute
-  '/upload/$shortId': typeof UploadShortIdRoute
+  '/callback': typeof CallbackRouteRoute
+  '/_auth/events': typeof AuthEventsRouteRouteWithChildren
+  '/upload/$shortId': typeof UploadShortIdRouteRoute
+  '/_auth/events/$eventId/photos': typeof AuthEventsEventIdPhotosRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/callback' | '/events' | '/upload/$shortId'
+  fullPaths:
+    | '/'
+    | '/callback'
+    | '/events'
+    | '/upload/$shortId'
+    | '/events/$eventId/photos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/callback' | '/events' | '/upload/$shortId'
+  to:
+    | '/'
+    | '/callback'
+    | '/events'
+    | '/upload/$shortId'
+    | '/events/$eventId/photos'
   id:
     | '__root__'
     | '/'
@@ -72,13 +98,14 @@ export interface FileRouteTypes {
     | '/callback'
     | '/_auth/events'
     | '/upload/$shortId'
+    | '/_auth/events/$eventId/photos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  CallbackRoute: typeof CallbackRoute
-  UploadShortIdRoute: typeof UploadShortIdRoute
+  CallbackRouteRoute: typeof CallbackRouteRoute
+  UploadShortIdRouteRoute: typeof UploadShortIdRouteRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -87,7 +114,7 @@ declare module '@tanstack/react-router' {
       id: '/callback'
       path: '/callback'
       fullPath: '/callback'
-      preLoaderRoute: typeof CallbackRouteImport
+      preLoaderRoute: typeof CallbackRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_auth': {
@@ -108,7 +135,7 @@ declare module '@tanstack/react-router' {
       id: '/upload/$shortId'
       path: '/upload/$shortId'
       fullPath: '/upload/$shortId'
-      preLoaderRoute: typeof UploadShortIdRouteImport
+      preLoaderRoute: typeof UploadShortIdRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_auth/events': {
@@ -118,15 +145,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthEventsRouteRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/_auth/events/$eventId/photos': {
+      id: '/_auth/events/$eventId/photos'
+      path: '/$eventId/photos'
+      fullPath: '/events/$eventId/photos'
+      preLoaderRoute: typeof AuthEventsEventIdPhotosRouteRouteImport
+      parentRoute: typeof AuthEventsRouteRoute
+    }
   }
 }
 
+interface AuthEventsRouteRouteChildren {
+  AuthEventsEventIdPhotosRouteRoute: typeof AuthEventsEventIdPhotosRouteRoute
+}
+
+const AuthEventsRouteRouteChildren: AuthEventsRouteRouteChildren = {
+  AuthEventsEventIdPhotosRouteRoute: AuthEventsEventIdPhotosRouteRoute,
+}
+
+const AuthEventsRouteRouteWithChildren = AuthEventsRouteRoute._addFileChildren(
+  AuthEventsRouteRouteChildren,
+)
+
 interface AuthRouteRouteChildren {
-  AuthEventsRouteRoute: typeof AuthEventsRouteRoute
+  AuthEventsRouteRoute: typeof AuthEventsRouteRouteWithChildren
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
-  AuthEventsRouteRoute: AuthEventsRouteRoute,
+  AuthEventsRouteRoute: AuthEventsRouteRouteWithChildren,
 }
 
 const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
@@ -136,8 +182,8 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
-  CallbackRoute: CallbackRoute,
-  UploadShortIdRoute: UploadShortIdRoute,
+  CallbackRouteRoute: CallbackRouteRoute,
+  UploadShortIdRouteRoute: UploadShortIdRouteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
