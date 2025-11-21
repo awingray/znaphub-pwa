@@ -4,8 +4,6 @@ export const uploadPhotoParamsSchema = z.object({
 	shortId: z.string().min(1).max(32),
 });
 
-export type UploadPhotoParams = z.infer<typeof uploadPhotoParamsSchema>;
-
 export const uploadPhotoBodySchema = z.object({
 	file: z
 		.instanceof(File)
@@ -17,11 +15,11 @@ export const uploadPhotoBodySchema = z.object({
 		),
 });
 
-export type UploadPhotoBody = z.infer<typeof uploadPhotoBodySchema>;
-
 export const uploadPhotoSchema = z.object({
 	shortId: uploadPhotoParamsSchema.shape.shortId,
 	file: uploadPhotoBodySchema.shape.file,
 });
 
+export type UploadPhotoParams = z.infer<typeof uploadPhotoParamsSchema>;
+export type UploadPhotoBody = z.infer<typeof uploadPhotoBodySchema>;
 export type UploadPhotoPayload = z.infer<typeof uploadPhotoSchema>;

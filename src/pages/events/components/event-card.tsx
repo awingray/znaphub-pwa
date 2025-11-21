@@ -1,5 +1,4 @@
 import type { Event } from "@/api/events/schemas";
-import { useCreateQrCode } from "@/api/qrcodes/mutations";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -9,7 +8,6 @@ import {
 	CardFooter,
 } from "@/components/ui/card";
 import QrCodeDialog from "./qrcode-dialog";
-import { useState } from "react";
 import useEventCard from "../hooks/use-event-card";
 
 interface EventCardProps {

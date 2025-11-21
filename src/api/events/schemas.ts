@@ -9,7 +9,7 @@ export const eventSchema = z.object({
 	createdAt: z.coerce.date(),
 });
 
-export const eventListschema = z.array(eventSchema);
+export const eventListSchema = z.array(eventSchema);
 
 export const createEventSchema = z.object({
 	name: z.string().min(1).max(200),
@@ -25,7 +25,19 @@ export const createEventSchema = z.object({
 	isPublic: z.boolean().default(false),
 });
 
+export const photoSchema = z.object({
+	id: z.uuid(),
+	eventId: eventSchema.shape.id,
+	fileName: z.string().min(1).max(512),
+	url: z.string().min(1),
+	uploadAt: z.coerce.date(),
+});
+export const photoListSchema = z.array(photoSchema);
+
 export type Event = z.infer<typeof eventSchema>;
-export type EventList = z.infer<typeof eventListschema>;
+export type EventList = z.infer<typeof eventListSchema>;
+
+export type Photo = z.infer<typeof photoSchema>;
+export type PhotoList = z.infer<typeof photoListSchema>;
 
 export type CreateEventPayload = z.infer<typeof createEventSchema>;

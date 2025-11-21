@@ -3,6 +3,7 @@ export const ENDPOINTS = {
 		LIST: "/events",
 		DETAIL: (id: string) => `/events/${id}`,
 		CREATE: "/events",
+		PHOTOS: (id: string) => `/events/${id}/photos`,
 	},
 	QRCODES: {
 		CREATE: "/qrcodes",
