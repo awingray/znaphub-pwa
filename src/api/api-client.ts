@@ -40,9 +40,13 @@ class ApiClient {
 			});
 		}
 
-		const headers: Record<string, string> = {
-			"Content-Type": "application/json",
-		};
+		const headers: Record<string, string> = {};
+
+		const isFormData = fetchConfig.body instanceof FormData;
+
+		if (!isFormData) {
+			headers["Content-Type"] = "application/json";
+		}
 
 		if (!skipAuth) {
 			try {
@@ -86,7 +90,7 @@ class ApiClient {
 		return this.request<T>(endpoint, {
 			...config,
 			method: HttpMethods.POST,
-			body: JSON.stringify(data),
+			body: data instanceof FormData ? data : JSON.stringify(data),
 		});
 	}
 
