@@ -9,12 +9,17 @@ import EventCreateFallback from "./components/event-create-fallback";
 import Match from "@/components/flow/match";
 import { Switch } from "@/components/flow/switch";
 import EventListSkeleton from "./components/event-list-skeleton";
+import useEventList from "./hooks/use-event-list";
 
 export default function EventsComponent() {
-	const { data, isFetching } = useQuery(EventListQueryOptions());
-	const [openCreateDialog, setOpenCreateDialog] = useState(false);
-	const handleOpenCreateDialog = () => setOpenCreateDialog(true);
-	const hasData = !!data?.length;
+	const {
+		data,
+		isFetching,
+		openCreateDialog,
+		setOpenCreateDialog,
+		handleOpenCreateDialog,
+		hasData,
+	} = useEventList();
 
 	return (
 		<div>

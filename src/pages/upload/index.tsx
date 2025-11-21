@@ -1,5 +1,5 @@
 import UploadCard from "./components/upload-card";
-import { useUploadPhoto } from "./hooks/use-upload-photo";
+import useUploadPhoto from "./hooks/use-upload-photo";
 
 export default function UploadComponent() {
 	const { shortId, handleFileInput, handleUpload } = useUploadPhoto();

@@ -10,24 +10,15 @@ import {
 } from "@/components/ui/card";
 import QrCodeDialog from "./qrcode-dialog";
 import { useState } from "react";
+import useEventCard from "../hooks/use-event-card";
 
 interface EventCardProps {
 	event: Event;
 }
 
 export default function EventCard({ event }: EventCardProps) {
-	const { mutate, data, isPending } = useCreateQrCode();
-	const handleCreateQrCode = () => {
-		mutate(
-			{ eventId: event.id },
-			{
-				onSuccess: () => {
-					setOpenQrDialog(true);
-				},
-			},
-		);
-	};
-	const [openQrDialog, setOpenQrDialog] = useState(false);
+	const { data, isPending, handleCreateQrCode, openQrDialog, setOpenQrDialog } =
+		useEventCard(event.id);
 
 	return (
 		<>
@@ -54,6 +45,9 @@ export default function EventCard({ event }: EventCardProps) {
 				<CardFooter className="flex justify-between items-center">
 					<Button size="sm" onClick={handleCreateQrCode} disabled={isPending}>
 						Create QR Code
+					</Button>
+					<Button size="sm" variant="ghost" disabled={isPending}>
+						View Photos
 					</Button>
 				</CardFooter>
 			</Card>

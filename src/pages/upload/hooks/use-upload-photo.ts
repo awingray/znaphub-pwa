@@ -3,7 +3,7 @@ import { useParams } from "@tanstack/react-router";
 import { ROUTES } from "@/constants/routes";
 import { useCreatePhoto } from "@/api/photos/mutations";
 
-export function useUploadPhoto() {
+export default function useUploadPhoto() {
 	const { shortId } = useParams({ from: ROUTES.UPLOAD });
 	const [file, setFile] = useState<File | null>(null);
 	const { mutate, isPending, error } = useCreatePhoto();
