@@ -1,5 +1,6 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: api client */
 
+import { HttpMethods } from "@/constants/http-methods";
 import { getCurrentToken } from "@/lib/auth";
 import { useAuthStore } from "@/stores/auth-store";
 
@@ -78,13 +79,13 @@ class ApiClient {
 	}
 
 	get<T>(endpoint: string, config?: RequestConfig): Promise<T> {
-		return this.request<T>(endpoint, { ...config, method: "GET" });
+		return this.request<T>(endpoint, { ...config, method: HttpMethods.GET });
 	}
 
 	post<T>(endpoint: string, data?: any, config?: RequestConfig): Promise<T> {
 		return this.request<T>(endpoint, {
 			...config,
-			method: "POST",
+			method: HttpMethods.POST,
 			body: JSON.stringify(data),
 		});
 	}
@@ -92,7 +93,7 @@ class ApiClient {
 	put<T>(endpoint: string, data?: any, config?: RequestConfig): Promise<T> {
 		return this.request<T>(endpoint, {
 			...config,
-			method: "PUT",
+			method: HttpMethods.PUT,
 			body: JSON.stringify(data),
 		});
 	}
@@ -100,13 +101,13 @@ class ApiClient {
 	patch<T>(endpoint: string, data?: any, config?: RequestConfig): Promise<T> {
 		return this.request<T>(endpoint, {
 			...config,
-			method: "PATCH",
+			method: HttpMethods.PATCH,
 			body: JSON.stringify(data),
 		});
 	}
 
 	delete<T>(endpoint: string, config?: RequestConfig): Promise<T> {
-		return this.request<T>(endpoint, { ...config, method: "DELETE" });
+		return this.request<T>(endpoint, { ...config, method: HttpMethods.DELETE });
 	}
 }
 
