@@ -2,18 +2,19 @@ import { useParams } from "@tanstack/react-router";
 import { ROUTES } from "@/constants/routes";
 import { useState, type ChangeEvent } from "react";
 import UploadCard from "./components/upload-card";
+import { useCreatePhoto } from "@/api/photos/mutations";
 
 export default function UploadComponent() {
 	const { shortId } = useParams({ from: ROUTES.UPLOAD });
 	const [file, setFile] = useState<File | null>(null);
+	const { mutate } = useCreatePhoto();
 
 	const handleFileInput = (e: ChangeEvent<HTMLInputElement>) =>
 		setFile(e.target.files ? e.target.files[0] : null);
 
 	const handleUpload = () => {
-		console.log("called handle upload");
-		console.log(file);
-		console.log(shortId);
+		if (!file) return;
+		mutate({ shortId, file });
 	};
 
 	return (
