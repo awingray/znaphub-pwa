@@ -9,7 +9,7 @@ export const Route = createFileRoute(ROUTES.CALLBACK)({
 		useAuthStore.getState().setToken(user.access_token);
 
 		const target =
-			(user?.state && (user.state as any).redirect) || ROUTES.EVENTS;
+			(user?.state && (user.state as any).redirect) || ROUTES.EVENTS.LIST;
 		throw redirect({ to: target });
 	},
 });
