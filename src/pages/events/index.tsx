@@ -1,9 +1,6 @@
-import { EventListQueryOptions } from "@/api/events/queries";
 import Each from "@/components/flow/each";
-import { useQuery } from "@tanstack/react-query";
 import EventHeader from "./components/event-header";
 import EventCard from "./components/event-card";
-import { useState } from "react";
 import EventCreateDialog from "./components/event-create-dialog";
 import EventCreateFallback from "./components/event-create-fallback";
 import Match from "@/components/flow/match";
