@@ -6,6 +6,7 @@ export const ROUTES = {
 
 	EVENTS: {
 		LIST: "/events",
+		DETAIL: "/events/$eventId",
 		PHOTOS: "/events/$eventId/photos",
 	},
 
@@ -14,6 +15,7 @@ export const ROUTES = {
 		EVENTS: {
 			LIST: "/_auth/events",
 			INDEX: "/_auth/events/",
+			DETAIL: "/_auth/events/$eventId",
 			PHOTOS: "/_auth/events/$eventId/photos",
 		},
 	},
