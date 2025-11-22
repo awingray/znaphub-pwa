@@ -20,3 +20,5 @@ export const ROUTES = {
 		},
 	},
 } as const;
+
+export const DEFAULT_REDIRECT = ROUTES.EVENTS.LIST;
