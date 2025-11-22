@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export default function useEventCard(id: string) {
 	const { mutate, data, isPending } = useCreateQrCode();
+	const [openQrDialog, setOpenQrDialog] = useState(false);
 	const handleCreateQrCode = () => {
 		mutate(
 			{ eventId: id },
@@ -13,7 +14,6 @@ export default function useEventCard(id: string) {
 			},
 		);
 	};
-	const [openQrDialog, setOpenQrDialog] = useState(false);
 
 	return {
 		data,

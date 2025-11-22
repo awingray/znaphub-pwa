@@ -30,7 +30,7 @@ export const photoSchema = z.object({
 	eventId: eventSchema.shape.id,
 	fileName: z.string().min(1).max(512),
 	url: z.string().min(1),
-	uploadAt: z.coerce.date(),
+	uploadedAt: z.coerce.date(),
 });
 export const photoListSchema = z.array(photoSchema);
 
