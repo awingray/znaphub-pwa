@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
 
 export default function useEventPhotos() {
-	const { eventId } = useParams({ from: ROUTES.AUTH.EVENTS.PHOTOS });
+	const { eventId } = useParams({ from: ROUTES.INTERNAL.EVENTS.PHOTOS });
 	const { data, isFetching } = useQuery(EventPhotosQueryOptions(eventId));
 	return {
 		eventId,

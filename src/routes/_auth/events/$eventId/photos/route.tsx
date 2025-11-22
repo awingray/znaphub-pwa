@@ -1,4 +1,4 @@
 import { ROUTES } from "@/constants/routes";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute(ROUTES.AUTH.EVENTS.PHOTOS)({});
+export const Route = createFileRoute(ROUTES.INTERNAL.EVENTS.PHOTOS)({});

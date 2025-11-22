@@ -3,7 +3,7 @@ import AppLayout from "@/components/layouts/app-layout";
 import { useAuthStore } from "@/stores/auth-store";
 import { ROUTES } from "@/constants/routes";
 
-export const Route = createFileRoute(ROUTES.AUTH.BASE)({
+export const Route = createFileRoute(ROUTES.INTERNAL.AUTH)({
 	beforeLoad: async ({ location }) => {
 		if (useAuthStore.getState().isAuthenticated) return;
 		throw redirect({

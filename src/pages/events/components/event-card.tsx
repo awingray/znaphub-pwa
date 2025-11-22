@@ -46,7 +46,7 @@ export default function EventCard({ event }: EventCardProps) {
 					<Button size="sm" onClick={handleCreateQrCode} disabled={isPending}>
 						Create QR Code
 					</Button>
-					<Link to={ROUTES.PHOTOS} params={{ eventId: event.id }}>
+					<Link to={ROUTES.EVENTS.PHOTOS} params={{ eventId: event.id }}>
 						<Button size="sm" variant="ghost">
 							View Photos
 						</Button>
