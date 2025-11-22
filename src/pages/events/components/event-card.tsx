@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/card";
 import QrCodeDialog from "./qrcode-dialog";
 import useEventCard from "../hooks/use-event-card";
+import { Link } from "@tanstack/react-router";
+import { ROUTES } from "@/constants/routes";
 
 interface EventCardProps {
 	event: Event;
@@ -44,9 +46,11 @@ export default function EventCard({ event }: EventCardProps) {
 					<Button size="sm" onClick={handleCreateQrCode} disabled={isPending}>
 						Create QR Code
 					</Button>
-					<Button size="sm" variant="ghost" disabled={isPending}>
-						View Photos
-					</Button>
+					<Link to={ROUTES.PHOTOS} params={{ eventId: event.id }}>
+						<Button size="sm" variant="ghost">
+							View Photos
+						</Button>
+					</Link>
 				</CardFooter>
 			</Card>
 
