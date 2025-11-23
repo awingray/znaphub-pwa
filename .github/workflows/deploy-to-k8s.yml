@@ -28,6 +28,7 @@ jobs:
         echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" >> .env
         echo "VITE_AUTHENTIK_URL=${{ secrets.VITE_AUTHENTIK_URL }}" >> .env
         echo "VITE_AUTHENTIK_CLIENT_ID=${{ secrets.VITE_AUTHENTIK_CLIENT_ID }}" >> .env
+        echo "VITE_AUTHENTIK_APPLICATION=${{ secrets.VITE_AUTHENTIK_APPLICATION }}" >> .env
         echo "VITE_AUTHENTIK_REDIRECT_URI=${{ secrets.VITE_AUTHENTIK_REDIRECT_URI }}" >> .env
         echo "VITE_AUTHENTIK_SILENT_REDIRECT_URI=${{ secrets.VITE_AUTHENTIK_SILENT_REDIRECT_URI }}" >> .env
         echo "VITE_AUTHENTIK_POST_LOGOUT_URI=${{ secrets.VITE_AUTHENTIK_POST_LOGOUT_URI }}" >> .env
