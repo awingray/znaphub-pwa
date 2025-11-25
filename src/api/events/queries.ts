@@ -11,7 +11,6 @@ export const EventListQueryOptions = () =>
 			const response = await api.get(ENDPOINTS.EVENTS.LIST);
 			return eventListSchema.parse(response);
 		},
-		initialData: [],
 	});
 
 export const EventDetailQueryOptions = (id: string) =>
@@ -30,5 +29,4 @@ export const EventPhotosQueryOptions = (id: string) =>
 			const response = await api.get(ENDPOINTS.EVENTS.PHOTOS(id));
 			return photoListSchema.parse(response);
 		},
-		initialData: [],
 	});
