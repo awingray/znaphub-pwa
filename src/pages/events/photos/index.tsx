@@ -1,13 +1,11 @@
-import useEventPhotos from "./hooks/use-event-photos";
-import PhotoFallback from "./components/photo-fallback";
-import PhotoGrid from "./components/photo-grid";
-import Show from "@/components/flow/show";
+import PhotoContent from "./components/photo-content";
+import { Suspense } from "react";
+import PhotoSkeleton from "./components/photo-skeleton";
 
 export default function EventPhotosComponent() {
-	const { data } = useEventPhotos();
 	return (
-		<Show when={!!data?.length} fallback={<PhotoFallback />}>
-			<PhotoGrid photos={data} />
-		</Show>
+		<Suspense fallback={<PhotoSkeleton />}>
+			<PhotoContent />
+		</Suspense>
 	);
 }
