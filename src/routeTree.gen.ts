@@ -8,240 +8,240 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router'
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as CallbackRouteRouteImport } from "./routes/callback/route";
-import { Route as AuthRouteRouteImport } from "./routes/_auth/route";
-import { Route as IndexRouteImport } from "./routes/index";
-import { Route as UploadShortIdRouteRouteImport } from "./routes/upload/$shortId/route";
-import { Route as AuthEventsRouteRouteImport } from "./routes/_auth/events/route";
-import { Route as AuthEventsEventIdRouteRouteImport } from "./routes/_auth/events/$eventId/route";
-import { Route as AuthEventsEventIdPhotosRouteRouteImport } from "./routes/_auth/events/$eventId/photos/route";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as CallbackRouteRouteImport } from './routes/callback/route'
+import { Route as AuthRouteRouteImport } from './routes/_auth/route'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as UploadShortIdRouteRouteImport } from './routes/upload/$shortId/route'
+import { Route as AuthEventsRouteRouteImport } from './routes/_auth/events/route'
+import { Route as AuthEventsEventIdRouteRouteImport } from './routes/_auth/events/$eventId/route'
+import { Route as AuthEventsEventIdPhotosRouteRouteImport } from './routes/_auth/events/$eventId/photos/route'
 
-const AuthEventsIndexLazyRouteImport = createFileRoute("/_auth/events/")();
+const AuthEventsIndexLazyRouteImport = createFileRoute('/_auth/events/')()
 
 const CallbackRouteRoute = CallbackRouteRouteImport.update({
-	id: "/callback",
-	path: "/callback",
-	getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/callback',
+  path: '/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
-	id: "/_auth",
-	getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/_auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
-	id: "/",
-	path: "/",
-	getParentRoute: () => rootRouteImport,
-} as any).lazy(() => import("./routes/index.lazy").then((d) => d.Route));
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 const UploadShortIdRouteRoute = UploadShortIdRouteRouteImport.update({
-	id: "/upload/$shortId",
-	path: "/upload/$shortId",
-	getParentRoute: () => rootRouteImport,
+  id: '/upload/$shortId',
+  path: '/upload/$shortId',
+  getParentRoute: () => rootRouteImport,
 } as any).lazy(() =>
-	import("./routes/upload/$shortId/route.lazy").then((d) => d.Route),
-);
+  import('./routes/upload/$shortId/route.lazy').then((d) => d.Route),
+)
 const AuthEventsRouteRoute = AuthEventsRouteRouteImport.update({
-	id: "/events",
-	path: "/events",
-	getParentRoute: () => AuthRouteRoute,
-} as any);
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
 const AuthEventsIndexLazyRoute = AuthEventsIndexLazyRouteImport.update({
-	id: "/",
-	path: "/",
-	getParentRoute: () => AuthEventsRouteRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthEventsRouteRoute,
 } as any).lazy(() =>
-	import("./routes/_auth/events/index.lazy").then((d) => d.Route),
-);
+  import('./routes/_auth/events/index.lazy').then((d) => d.Route),
+)
 const AuthEventsEventIdRouteRoute = AuthEventsEventIdRouteRouteImport.update({
-	id: "/$eventId",
-	path: "/$eventId",
-	getParentRoute: () => AuthEventsRouteRoute,
-} as any);
+  id: '/$eventId',
+  path: '/$eventId',
+  getParentRoute: () => AuthEventsRouteRoute,
+} as any)
 const AuthEventsEventIdPhotosRouteRoute =
-	AuthEventsEventIdPhotosRouteRouteImport.update({
-		id: "/photos",
-		path: "/photos",
-		getParentRoute: () => AuthEventsEventIdRouteRoute,
-	} as any).lazy(() =>
-		import("./routes/_auth/events/$eventId/photos/route.lazy").then(
-			(d) => d.Route,
-		),
-	);
+  AuthEventsEventIdPhotosRouteRouteImport.update({
+    id: '/photos',
+    path: '/photos',
+    getParentRoute: () => AuthEventsEventIdRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_auth/events/$eventId/photos/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 export interface FileRoutesByFullPath {
-	"/": typeof IndexRoute;
-	"/callback": typeof CallbackRouteRoute;
-	"/events": typeof AuthEventsRouteRouteWithChildren;
-	"/upload/$shortId": typeof UploadShortIdRouteRoute;
-	"/events/$eventId": typeof AuthEventsEventIdRouteRouteWithChildren;
-	"/events/": typeof AuthEventsIndexLazyRoute;
-	"/events/$eventId/photos": typeof AuthEventsEventIdPhotosRouteRoute;
+  '/': typeof IndexRoute
+  '/callback': typeof CallbackRouteRoute
+  '/events': typeof AuthEventsRouteRouteWithChildren
+  '/upload/$shortId': typeof UploadShortIdRouteRoute
+  '/events/$eventId': typeof AuthEventsEventIdRouteRouteWithChildren
+  '/events/': typeof AuthEventsIndexLazyRoute
+  '/events/$eventId/photos': typeof AuthEventsEventIdPhotosRouteRoute
 }
 export interface FileRoutesByTo {
-	"/": typeof IndexRoute;
-	"/callback": typeof CallbackRouteRoute;
-	"/upload/$shortId": typeof UploadShortIdRouteRoute;
-	"/events/$eventId": typeof AuthEventsEventIdRouteRouteWithChildren;
-	"/events": typeof AuthEventsIndexLazyRoute;
-	"/events/$eventId/photos": typeof AuthEventsEventIdPhotosRouteRoute;
+  '/': typeof IndexRoute
+  '/callback': typeof CallbackRouteRoute
+  '/upload/$shortId': typeof UploadShortIdRouteRoute
+  '/events/$eventId': typeof AuthEventsEventIdRouteRouteWithChildren
+  '/events': typeof AuthEventsIndexLazyRoute
+  '/events/$eventId/photos': typeof AuthEventsEventIdPhotosRouteRoute
 }
 export interface FileRoutesById {
-	__root__: typeof rootRouteImport;
-	"/": typeof IndexRoute;
-	"/_auth": typeof AuthRouteRouteWithChildren;
-	"/callback": typeof CallbackRouteRoute;
-	"/_auth/events": typeof AuthEventsRouteRouteWithChildren;
-	"/upload/$shortId": typeof UploadShortIdRouteRoute;
-	"/_auth/events/$eventId": typeof AuthEventsEventIdRouteRouteWithChildren;
-	"/_auth/events/": typeof AuthEventsIndexLazyRoute;
-	"/_auth/events/$eventId/photos": typeof AuthEventsEventIdPhotosRouteRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/_auth': typeof AuthRouteRouteWithChildren
+  '/callback': typeof CallbackRouteRoute
+  '/_auth/events': typeof AuthEventsRouteRouteWithChildren
+  '/upload/$shortId': typeof UploadShortIdRouteRoute
+  '/_auth/events/$eventId': typeof AuthEventsEventIdRouteRouteWithChildren
+  '/_auth/events/': typeof AuthEventsIndexLazyRoute
+  '/_auth/events/$eventId/photos': typeof AuthEventsEventIdPhotosRouteRoute
 }
 export interface FileRouteTypes {
-	fileRoutesByFullPath: FileRoutesByFullPath;
-	fullPaths:
-		| "/"
-		| "/callback"
-		| "/events"
-		| "/upload/$shortId"
-		| "/events/$eventId"
-		| "/events/"
-		| "/events/$eventId/photos";
-	fileRoutesByTo: FileRoutesByTo;
-	to:
-		| "/"
-		| "/callback"
-		| "/upload/$shortId"
-		| "/events/$eventId"
-		| "/events"
-		| "/events/$eventId/photos";
-	id:
-		| "__root__"
-		| "/"
-		| "/_auth"
-		| "/callback"
-		| "/_auth/events"
-		| "/upload/$shortId"
-		| "/_auth/events/$eventId"
-		| "/_auth/events/"
-		| "/_auth/events/$eventId/photos";
-	fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/callback'
+    | '/events'
+    | '/upload/$shortId'
+    | '/events/$eventId'
+    | '/events/'
+    | '/events/$eventId/photos'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/callback'
+    | '/upload/$shortId'
+    | '/events/$eventId'
+    | '/events'
+    | '/events/$eventId/photos'
+  id:
+    | '__root__'
+    | '/'
+    | '/_auth'
+    | '/callback'
+    | '/_auth/events'
+    | '/upload/$shortId'
+    | '/_auth/events/$eventId'
+    | '/_auth/events/'
+    | '/_auth/events/$eventId/photos'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-	IndexRoute: typeof IndexRoute;
-	AuthRouteRoute: typeof AuthRouteRouteWithChildren;
-	CallbackRouteRoute: typeof CallbackRouteRoute;
-	UploadShortIdRouteRoute: typeof UploadShortIdRouteRoute;
+  IndexRoute: typeof IndexRoute
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  CallbackRouteRoute: typeof CallbackRouteRoute
+  UploadShortIdRouteRoute: typeof UploadShortIdRouteRoute
 }
 
-declare module "@tanstack/react-router" {
-	interface FileRoutesByPath {
-		"/callback": {
-			id: "/callback";
-			path: "/callback";
-			fullPath: "/callback";
-			preLoaderRoute: typeof CallbackRouteRouteImport;
-			parentRoute: typeof rootRouteImport;
-		};
-		"/_auth": {
-			id: "/_auth";
-			path: "";
-			fullPath: "";
-			preLoaderRoute: typeof AuthRouteRouteImport;
-			parentRoute: typeof rootRouteImport;
-		};
-		"/": {
-			id: "/";
-			path: "/";
-			fullPath: "/";
-			preLoaderRoute: typeof IndexRouteImport;
-			parentRoute: typeof rootRouteImport;
-		};
-		"/upload/$shortId": {
-			id: "/upload/$shortId";
-			path: "/upload/$shortId";
-			fullPath: "/upload/$shortId";
-			preLoaderRoute: typeof UploadShortIdRouteRouteImport;
-			parentRoute: typeof rootRouteImport;
-		};
-		"/_auth/events": {
-			id: "/_auth/events";
-			path: "/events";
-			fullPath: "/events";
-			preLoaderRoute: typeof AuthEventsRouteRouteImport;
-			parentRoute: typeof AuthRouteRoute;
-		};
-		"/_auth/events/": {
-			id: "/_auth/events/";
-			path: "/";
-			fullPath: "/events/";
-			preLoaderRoute: typeof AuthEventsIndexLazyRouteImport;
-			parentRoute: typeof AuthEventsRouteRoute;
-		};
-		"/_auth/events/$eventId": {
-			id: "/_auth/events/$eventId";
-			path: "/$eventId";
-			fullPath: "/events/$eventId";
-			preLoaderRoute: typeof AuthEventsEventIdRouteRouteImport;
-			parentRoute: typeof AuthEventsRouteRoute;
-		};
-		"/_auth/events/$eventId/photos": {
-			id: "/_auth/events/$eventId/photos";
-			path: "/photos";
-			fullPath: "/events/$eventId/photos";
-			preLoaderRoute: typeof AuthEventsEventIdPhotosRouteRouteImport;
-			parentRoute: typeof AuthEventsEventIdRouteRoute;
-		};
-	}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/callback': {
+      id: '/callback'
+      path: '/callback'
+      fullPath: '/callback'
+      preLoaderRoute: typeof CallbackRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upload/$shortId': {
+      id: '/upload/$shortId'
+      path: '/upload/$shortId'
+      fullPath: '/upload/$shortId'
+      preLoaderRoute: typeof UploadShortIdRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth/events': {
+      id: '/_auth/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof AuthEventsRouteRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/events/': {
+      id: '/_auth/events/'
+      path: '/'
+      fullPath: '/events/'
+      preLoaderRoute: typeof AuthEventsIndexLazyRouteImport
+      parentRoute: typeof AuthEventsRouteRoute
+    }
+    '/_auth/events/$eventId': {
+      id: '/_auth/events/$eventId'
+      path: '/$eventId'
+      fullPath: '/events/$eventId'
+      preLoaderRoute: typeof AuthEventsEventIdRouteRouteImport
+      parentRoute: typeof AuthEventsRouteRoute
+    }
+    '/_auth/events/$eventId/photos': {
+      id: '/_auth/events/$eventId/photos'
+      path: '/photos'
+      fullPath: '/events/$eventId/photos'
+      preLoaderRoute: typeof AuthEventsEventIdPhotosRouteRouteImport
+      parentRoute: typeof AuthEventsEventIdRouteRoute
+    }
+  }
 }
 
 interface AuthEventsEventIdRouteRouteChildren {
-	AuthEventsEventIdPhotosRouteRoute: typeof AuthEventsEventIdPhotosRouteRoute;
+  AuthEventsEventIdPhotosRouteRoute: typeof AuthEventsEventIdPhotosRouteRoute
 }
 
 const AuthEventsEventIdRouteRouteChildren: AuthEventsEventIdRouteRouteChildren =
-	{
-		AuthEventsEventIdPhotosRouteRoute: AuthEventsEventIdPhotosRouteRoute,
-	};
+  {
+    AuthEventsEventIdPhotosRouteRoute: AuthEventsEventIdPhotosRouteRoute,
+  }
 
 const AuthEventsEventIdRouteRouteWithChildren =
-	AuthEventsEventIdRouteRoute._addFileChildren(
-		AuthEventsEventIdRouteRouteChildren,
-	);
+  AuthEventsEventIdRouteRoute._addFileChildren(
+    AuthEventsEventIdRouteRouteChildren,
+  )
 
 interface AuthEventsRouteRouteChildren {
-	AuthEventsEventIdRouteRoute: typeof AuthEventsEventIdRouteRouteWithChildren;
-	AuthEventsIndexLazyRoute: typeof AuthEventsIndexLazyRoute;
+  AuthEventsEventIdRouteRoute: typeof AuthEventsEventIdRouteRouteWithChildren
+  AuthEventsIndexLazyRoute: typeof AuthEventsIndexLazyRoute
 }
 
 const AuthEventsRouteRouteChildren: AuthEventsRouteRouteChildren = {
-	AuthEventsEventIdRouteRoute: AuthEventsEventIdRouteRouteWithChildren,
-	AuthEventsIndexLazyRoute: AuthEventsIndexLazyRoute,
-};
+  AuthEventsEventIdRouteRoute: AuthEventsEventIdRouteRouteWithChildren,
+  AuthEventsIndexLazyRoute: AuthEventsIndexLazyRoute,
+}
 
 const AuthEventsRouteRouteWithChildren = AuthEventsRouteRoute._addFileChildren(
-	AuthEventsRouteRouteChildren,
-);
+  AuthEventsRouteRouteChildren,
+)
 
 interface AuthRouteRouteChildren {
-	AuthEventsRouteRoute: typeof AuthEventsRouteRouteWithChildren;
+  AuthEventsRouteRoute: typeof AuthEventsRouteRouteWithChildren
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
-	AuthEventsRouteRoute: AuthEventsRouteRouteWithChildren,
-};
+  AuthEventsRouteRoute: AuthEventsRouteRouteWithChildren,
+}
 
 const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
-	AuthRouteRouteChildren,
-);
+  AuthRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
-	IndexRoute: IndexRoute,
-	AuthRouteRoute: AuthRouteRouteWithChildren,
-	CallbackRouteRoute: CallbackRouteRoute,
-	UploadShortIdRouteRoute: UploadShortIdRouteRoute,
-};
+  IndexRoute: IndexRoute,
+  AuthRouteRoute: AuthRouteRouteWithChildren,
+  CallbackRouteRoute: CallbackRouteRoute,
+  UploadShortIdRouteRoute: UploadShortIdRouteRoute,
+}
 export const routeTree = rootRouteImport
-	._addFileChildren(rootRouteChildren)
-	._addFileTypes<FileRouteTypes>();
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
