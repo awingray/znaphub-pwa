@@ -1,6 +1,4 @@
 import useEventPhotos from "./hooks/use-event-photos";
-import Match from "@/components/flow/match";
-import { Switch } from "@/components/flow/switch";
 import PhotoFallback from "./components/photo-fallback";
 import PhotoSkeleton from "./components/photo-skeleton";
 import PhotoGrid from "./components/photo-grid";
