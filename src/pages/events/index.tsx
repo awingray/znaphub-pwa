@@ -7,11 +7,13 @@ import Match from "@/components/flow/match";
 import { Switch } from "@/components/flow/switch";
 import EventListSkeleton from "./components/event-list-skeleton";
 import useEventList from "./hooks/use-event-list";
+import { Suspense } from "react";
+import Show from "@/components/flow/show";
+import EventGrid from "./components/event-grid";
 
 export default function EventsComponent() {
 	const {
 		data,
-		isFetching,
 		openCreateDialog,
 		setOpenCreateDialog,
 		handleOpenCreateDialog,
@@ -25,22 +27,14 @@ export default function EventsComponent() {
 				open={openCreateDialog}
 				onOpenChange={setOpenCreateDialog}
 			/>
-			<Switch>
-				<Match when={isFetching}>
-					<EventListSkeleton />
-				</Match>
-				<Match when={hasData}>
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-						<Each
-							of={data}
-							render={(event) => <EventCard key={event.id} event={event} />}
-						/>
-					</div>
-				</Match>
-				<Match>
-					<EventCreateFallback onCreate={handleOpenCreateDialog} />
-				</Match>
-			</Switch>
+			<Suspense fallback={<EventListSkeleton />}>
+				<Show
+					when={hasData}
+					fallback={<EventCreateFallback onCreate={handleOpenCreateDialog} />}
+				>
+					<EventGrid events={data} />
+				</Show>
+			</Suspense>
 		</div>
 	);
 }
