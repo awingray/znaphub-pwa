@@ -7,7 +7,7 @@ import {
 	CardContent,
 	CardFooter,
 } from "@/components/ui/card";
-import QrCodeDialog from "./qrcode-dialog";
+import QrCodeDialog from "../dialogs/qrcode-dialog";
 import useEventCard from "../hooks/use-event-card";
 import { Link } from "@tanstack/react-router";
 import { ROUTES } from "@/constants/routes";

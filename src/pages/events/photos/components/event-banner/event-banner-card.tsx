@@ -1,6 +1,6 @@
 import { Card, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import useEventBanner from "../hooks/use-event-banner";
+import useEventBanner from "../../hooks/use-event-banner";
 
 export default function EventBannerCard() {
 	const { history, event } = useEventBanner();

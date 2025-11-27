@@ -1,8 +1,8 @@
 import PhotoContent from "./components/photo-content";
 import { Suspense } from "react";
 import PhotoSkeleton from "./components/photo-skeleton";
-import EventBannerCard from "./components/event-banner-card";
-import EventBannerSkeleton from "./components/event-banner-skeleton";
+import EventBannerCard from "./components/event-banner/event-banner-card";
+import EventBannerSkeleton from "./components/event-banner/event-banner-skeleton";
 
 export default function EventPhotosComponent() {
 	return (
