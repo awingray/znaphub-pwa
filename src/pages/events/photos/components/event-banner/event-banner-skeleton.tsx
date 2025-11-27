@@ -2,7 +2,6 @@ import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function EventBannerSkeleton() {
-	console.log("rendered");
 	return (
 		<Card className="mb-6 p-4">
 			<div className="flex items-start justify-between">
