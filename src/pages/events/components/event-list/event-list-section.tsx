@@ -5,15 +5,10 @@ import EventListFallback from "./event-list-fallback";
 
 interface EventListSectionProps {
 	onCreate: () => void;
-	onData: (hasData: boolean) => void;
 }
 
-export default function EventListSection({
-	onCreate,
-	onData,
-}: EventListSectionProps) {
+export default function EventListSection({ onCreate }: EventListSectionProps) {
 	const { data, hasData } = useEventListData();
-	onData(hasData);
 	return (
 		<Show when={hasData} fallback={<EventListFallback onCreate={onCreate} />}>
 			<EventGrid events={data} />

@@ -6,26 +6,18 @@ import EventListSkeleton from "./components/event-list/event-list-skeleton";
 import { useEventListLayout } from "./hooks/use-event-list-layout";
 
 export default function EventsComponent() {
-	const {
-		openCreateDialog,
-		setOpenCreateDialog,
-		handleOpenCreateDialog,
-		hasData,
-		setHasData,
-	} = useEventListLayout();
+	const { openCreateDialog, setOpenCreateDialog, handleOpenCreateDialog } =
+		useEventListLayout();
 
 	return (
 		<section>
-			<EventHeader onCreate={handleOpenCreateDialog} showCreate={hasData} />
+			<EventHeader onCreate={handleOpenCreateDialog} />
 			<EventCreateDialog
 				open={openCreateDialog}
 				onOpenChange={setOpenCreateDialog}
 			/>
 			<Suspense fallback={<EventListSkeleton />}>
-				<EventListSection
-					onCreate={handleOpenCreateDialog}
-					onData={setHasData}
-				/>
+				<EventListSection onCreate={handleOpenCreateDialog} />
 			</Suspense>
 		</section>
 	);

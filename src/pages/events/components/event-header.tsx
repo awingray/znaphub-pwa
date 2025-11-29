@@ -1,15 +1,10 @@
-import Show from "@/components/flow/show";
 import { Button } from "@/components/ui/button";
 
 interface EventsHeaderProps {
 	onCreate: () => void;
-	showCreate: boolean;
 }
 
-export default function EventHeader({
-	onCreate,
-	showCreate = true,
-}: EventsHeaderProps) {
+export default function EventHeader({ onCreate }: EventsHeaderProps) {
 	return (
 		<div className="flex items-center justify-between mb-6">
 			<div>
@@ -19,11 +14,9 @@ export default function EventHeader({
 				</p>
 			</div>
 
-			<Show when={showCreate}>
-				<Button size="sm" onClick={onCreate}>
-					Create Event
-				</Button>
-			</Show>
+			<Button size="sm" onClick={onCreate}>
+				Create Event
+			</Button>
 		</div>
 	);
 }
